@@ -1,0 +1,9 @@
+@import 'box/support';
+
+@mixin box($args, $box-model:null) {
+  $properties: box-parse-properties($args);
+  @if $box-model {
+    box-model: $box-model;
+  }
+  @include box-render-properties($properties, $box-model);
+}

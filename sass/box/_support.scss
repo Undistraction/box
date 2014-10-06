@@ -1,0 +1,21 @@
+@function box-parse-properties($args) {
+  @return null;
+}
+
+/**
+ * Render box-properties to CSS properties
+ * @param {Map} $box-properties A map of box model properties.
+ * @param {String} $box-model A box model keyword
+ * @output CSS properties
+ * @access private
+ */
+@mixin box-render($box-properties, $box-model:null) {
+
+  @if $box-model {
+    box-model: $box-model;
+  }
+
+  @each $box-property, $box-property-value in $box-properties {
+    #{$box-property}: #{$box-property-value};
+  }
+}

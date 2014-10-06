@@ -1,0 +1,14 @@
+@include describe("box-parse-properties") {
+
+  @include it("should return null") {
+    @include should(
+      expect(
+        box-parse-properties(())
+      ),
+      to( equal(
+        null
+      ))
+    );
+  }
+
+}
