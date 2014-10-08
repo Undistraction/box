@@ -1,21 +1,121 @@
-@function box-parse-properties($args) {
-  @return null;
+$box-orientations: horizontal vertical;
+$box-valid-unitless-values:  auto initial inherit 0;
+$box-valid-multiple-properties:  margin padding border;
+$box-valid-single-properties:  margin-top
+                              margin-right
+                              margin-bottom
+                              margin-left
+                              padding-top
+                              padding-right
+                              padding-bottom
+                              padding-left
+                              border-top
+                              border-right
+                              border-bottom
+                              border-left;
+
+$box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-properties);
+
+@function box-process-arbitrary-value($key, $value) {
+  @if box-is-valid-property($key) {
+    @if box-is-single-property($key) {
+      @if length($value) == 1 {
+        $orientation: box-orientation-of-property($key);
+        @return box-process-single-value($value, $orientation);
+      } @else {
+        @error "#{$key} only supports a single value, but value was `#{$value}`";
+      }
+    } @else {
+      @return box-process-multiple-values($value);
+    }
+  } @else {
+    @error "#{$key} is not a supported value";
+  }
 }
 
-/**
- * Render box-properties to CSS properties
- * @param {Map} $box-properties A map of box model properties.
- * @param {String} $box-model A box model keyword
- * @output CSS properties
- * @access private
- */
-@mixin box-render($box-properties, $box-model:null) {
-
-  @if $box-model {
-    box-model: $box-model;
+// Process value if it isn't already a valid number
+@function box-process-single-value($value, $orientation) {
+  @if box-should-parse-value($value) {
+    $value: box-parse-value-filter($value, $orientation);
   }
+  @return $value;
+}
 
-  @each $box-property, $box-property-value in $box-properties {
-    #{$box-property}: #{$box-property-value};
+@function box-process-multiple-values($values) {
+  $values: box-process-to-four-values($values);
+  $processed-values: ();
+  $orientation: null;
+  @for $i from 1 through length($values) {
+    $value: nth($values, $i);
+    @if even($i) {
+      $orientation: horizontal;
+    } @else {
+      $orientation: vertical;
+    }
+    @if box-should-parse-value($value) {
+      $value: box-parse-value-filter($value, $orientation);
+    }
+    $processed-values: append($processed-values, $value);
+  }
+  @return $processed-values;
+}
+
+// Process all value lists to four values to make processing easy.
+@function box-process-to-four-values($values) {
+  $length: length($values);
+  // Convert all values to 4 values
+  @if $length < 4 {
+    @if length($values) == 3 {
+      // (T,L+R,B) We need to add the 2nd prop again as the last prop
+      $values: append($values, nth($values, 2));
+    } @else if $length == 2 {
+      // (T+B, L+R) We need to duplicate
+      $values: join($values, $values);
+    } @else {
+      // (T+R+B+L) We need to duplicate 4 times
+      $values: append( append(append($values, nth($values, 1)), nth($values, 1)), nth($values, 1));
+    }
+  }
+  @return $values;
+}
+
+// 1. Check if the value maps to one of our keywords and if so, swap out the value
+// This is just a hook to be overridden. By default we just pass back the value
+@function box-parse-value-filter($value, $orientation){
+  @error "Unsupported value #{$value}";
+}
+
+// Check if value is even
+@function even($number) {
+  @return $number % 2 == 0;
+}
+
+// Does the value need to be parsed ?
+@function box-should-parse-value($value){
+  @return not (box-is-valid-unitless($value) or box-is-number_with_unit($value));
+}
+
+@function box-is-valid-unitless($value) {
+  @return not not index($box-valid-unitless-values, $value);
+}
+
+@function box-is-number_with_unit($value) {
+  @return (type-of($value) == number and not unitless($value));
+}
+
+@function box-is-valid-property($value) {
+  @return not not index($box-valid-properties, $value);
+}
+
+@function box-is-single-property($value) {
+  @return not not index($box-valid-single-properties, $value);
+}
+
+@function box-orientation-of-property($value) {
+  $direction: str-slice($value, str-index($value, '-')+1);
+  @if not not index(left right, $direction) {
+    @return horizontal;
+  } @else {
+    @return vertical;
   }
 }

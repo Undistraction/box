@@ -1,0 +1,58 @@
+@include describe("box-process-multiple-values") {
+
+  @include describe("with a united value of a") {
+
+    @include it("should return a a a a") {
+      @include should(
+        expect(
+          box-process-multiple-values(1px)
+        ),
+        to( equal(
+          1px 1px 1px 1px
+        ))
+      );
+    }
+  }
+
+  @include describe("with a united value of a b") {
+
+    @include it("should return a b a b") {
+      @include should(
+        expect(
+          box-process-multiple-values(1px 2px)
+        ),
+        to( equal(
+          1px 2px 1px 2px
+        ))
+      );
+    }
+  }
+
+  @include describe("with a united value of a b c") {
+
+    @include it("should return a b c b") {
+      @include should(
+        expect(
+          box-process-multiple-values(1px 2px 3px)
+        ),
+        to( equal(
+          1px 2px 3px 2px
+        ))
+      );
+    }
+  }
+
+  @include describe("with a united value of a b c d") {
+
+    @include it("should return a b c d") {
+      @include should(
+        expect(
+          box-process-multiple-values(1px 2px 3px 4px)
+        ),
+        to( equal(
+          1px 2px 3px 4px
+        ))
+      );
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@include describe("box-process-single-value") {
+
+  // $box-valid-single-arguments: (
+  //                                 margin-top: vertical,
+  //                                 margin-right: horizontal,
+  //                                 margin-bottom: vertical,
+  //                                 margin-left horizontal,
+  //                                 padding-top: vertical,
+  //                                 padding-right horizontal,
+  //                                 padding-bottom: vertical,
+  //                                 padding-left horizontal,
+  //                                 border-top: vertical,
+  //                                 border-right horizontal,
+  //                                 border-bottom: vertical,
+  //                                 border-left horizontal
+  //                               );
+
+  // @each $property, $orientation in $box-valid-single-arguments {
+
+  // }
+
+  @each $orientation in $box-orientations {
+
+    @include describe("with single united value") {
+
+      @include it("should return that value") {
+        @include should(
+          expect(
+            box-process-single-value(10px, $orientation)
+          ),
+          to( equal(
+            10px
+          ))
+        );
+      }
+    }
+  }
+
+}

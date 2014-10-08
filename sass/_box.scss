@@ -1,9 +1,89 @@
 @import 'box/support';
 
-@mixin box($args, $box-model:null) {
-  $properties: box-parse-properties($args);
-  @if $box-model {
-    box-model: $box-model;
+// Pass in a map
+@mixin box($map) {
+  @each $key, $value in $map {
+    #{$key}: #{box-process-arbitrary-value($key, $value)};
   }
-  @include box-render-properties($properties, $box-model);
+}
+
+// Margin
+
+@mixin margin($value) {
+  $value: box-process-multiple-values($value);
+  margin: #{$value};
+}
+
+@mixin margin-top($value) {
+  $value: box-process-single-value($value, vertical);
+  margin-top: #{$value};
+}
+
+@mixin margin-right($value) {
+  $value: box-process-single-value($value, horizontal);
+  margin-right: #{$value};
+}
+
+@mixin margin-bottom($value) {
+  $value: box-process-single-value($value, vertical);
+  margin-bottom: #{$value};
+}
+
+@mixin margin-left($value) {
+  $value: box-process-single-value($value, horizontal);
+  margin-left: #{$value};
+}
+
+// Padding
+
+@mixin padding($value) {
+  $value: box-process-multiple-values($value);
+  padding: #{$value};
+}
+
+@mixin padding-top($value) {
+  $value: box-process-single-value($value, vertical);
+  padding-top: #{$value};
+}
+
+@mixin padding-right($value) {
+  $value: box-process-single-value($value, horizontal);
+  padding-right: #{$value};
+}
+
+@mixin padding-bottom($value) {
+  $value: box-process-single-value($value, vertical);
+  padding-bottom: #{$value};
+}
+
+@mixin padding-left($value) {
+  $value: box-process-single-value($value, horizontal);
+  padding-left: #{$value};
+}
+
+// Border
+
+@mixin border($value) {
+  $value: box-process-multiple-values($value);
+  border: #{$value};
+}
+
+@mixin border-top($value) {
+  $value: box-process-single-value($value, vertical);
+  border-top: #{$value};
+}
+
+@mixin border-right($value) {
+  $value: box-process-single-value($value, horizontal);
+  border-right: #{$value};
+}
+
+@mixin border-bottom($value) {
+  $value: box-process-single-value($value, vertical);
+  border-bottom: #{$value};
+}
+
+@mixin border-left($value) {
+  $value: box-process-single-value($value, horizontal);
+  border-left: #{$value};
 }
