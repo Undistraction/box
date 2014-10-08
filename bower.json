@@ -1,11 +1,11 @@
 {
   "name": "box",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "homepage": "https://github.com/Undistraction/box",
   "authors": [
     "Pedr Browne <pedr.browne@gmail.com>"
   ],
-  "description": "A Single mixin for setting an element's box properties",
+  "description": "A set of mixins for setting an element's box properties with support for custom units",
   "keywords": [
     "sass",
     "box-model"
