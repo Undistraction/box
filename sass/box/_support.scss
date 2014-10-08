@@ -91,17 +91,24 @@ $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-pr
 }
 
 // Does the value need to be parsed ?
-@function box-should-parse-value($value){
-  @return not (box-is-valid-unitless($value) or box-is-number_with_unit($value));
+@function box-should-parse-value($value) {
+  @return not( box-is-number-with-unit($value)
+            or box-is-valid-unitless($value)
+            or box-is-calc($value));
+}
+
+@function box-is-calc($value) {
+ @return str-slice($value + "", 1, 4) == "calc";
 }
 
 @function box-is-valid-unitless($value) {
   @return not not index($box-valid-unitless-values, $value);
 }
 
-@function box-is-number_with_unit($value) {
+@function box-is-number-with-unit($value) {
   @return (type-of($value) == number and not unitless($value));
 }
+
 
 @function box-is-valid-property($value) {
   @return not not index($box-valid-properties, $value);
