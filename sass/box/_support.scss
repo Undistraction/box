@@ -81,7 +81,7 @@ $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-pr
 
 // 1. Check if the value maps to one of our keywords and if so, swap out the value
 // This is just a hook to be overridden. By default we just pass back the value
-@function box-parse-value-filter($value, $orientation){
+@function box-parse-value-filter($value, $orientation) {
   @error "Unsupported value #{$value}";
 }
 
@@ -109,7 +109,6 @@ $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-pr
   @return (type-of($value) == number and not unitless($value));
 }
 
-
 @function box-is-valid-property($value) {
   @return not not index($box-valid-properties, $value);
 }
@@ -119,7 +118,7 @@ $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-pr
 }
 
 @function box-orientation-of-property($value) {
-  $direction: str-slice($value, str-index($value, '-')+1);
+  $direction: str-slice($value, str-index($value, '-') + 1);
   @if not not index(left right, $direction) {
     @return horizontal;
   } @else {
