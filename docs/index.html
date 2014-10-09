@@ -8,7 +8,7 @@
   
   <meta charset="utf-8" />
 
-<title>SassDoc - v0.0.5</title>
+<title>SassDoc - v0.0.6</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width">
@@ -26,7 +26,7 @@
   <div class="sidebar__header">
   <h1 class="sidebar__title">
     
-      <a href="https://github.com/Undistraction/Box">SassDoc - v0.0.5</a>
+      <a href="https://github.com/Undistraction/Box">SassDoc - v0.0.6</a>
     
   </h1>
 </div>
@@ -34,9 +34,39 @@
 <div class="sidebar__body">
   
   
-    <p class="sidebar__item  sidebar__item--heading">No documented item.</p>
+    <button type="button" class="btn-toggle  js-btn-toggle" data-alt="Open all">Close all</button>
 
-  
+    
+    
+      <p class="sidebar__item  sidebar__item--heading" data-slug="undefined"><a href="#undefined">Box</a></p>
+
+      
+      
+        <div>
+
+        
+        
+
+        
+        
+          <p class="sidebar__item  sidebar__item--sub-heading" data-slug="undefined-function"><a href="#undefined-function">functions</a></p>
+
+          
+          
+            <ul class="list-unstyled">
+            <li class="sidebar__item  sassdoc__item" data-name="box-throw-error" data-type="function">
+              <a href="#function-box-throw-error">box-throw-error
+              <span class="sidebar__annotation  sidebar__annotation--private">private</span>
+              
+              </a>
+            </li>
+            </ul>
+          
+        
+        </div>
+      
+
+    
   
 </div>
 
@@ -72,11 +102,228 @@
 
   
   
-    <section class="main__section">
-      <h2 class="main__heading">Seems like nothing has been documented yet!</h2>
-    </section>
+
+    
+    
+      <section class="main__section">
+        <h1 class="main__heading" id="undefined">Box</h1>
+
+        
+        
+
+          
+          
+
+          
+          
+            <section class="main__sub-section" id="undefined-function">
+              <h2 class="main__heading--secondary">functions</h2>
+
+              
+              
+                <section class="main__item  item" id="function-box-throw-error">
+
+<h3 class="item__heading">
+  
+    <span class="item__access">[private]</span>
+  
+
+  <a class="item__name" href="#function-box-throw-error">box-throw-error</a>
 
   
+
+  
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+<div class="relative  clear  code--collapsed">
+  <pre class="item__code  item__code--togglable  language-scss"
+    data-current-state="collapsed"
+    data-expanded="@function box-throw-error($error, $message) { 
+  @if $box-under-test {
+    $box-last-error: $error !global;
+  } @else {
+    @error &quot;#{$error} #{$message}&quot;;
+  }
+  @return null;
+ }"
+    data-collapsed="@function box-throw-error($error, $message) { ... }"><code>@function box-throw-error($error, $message) { ... }</code></pre>
+
+  
+    <a href="https://github.com/SassDoc/sassdoc/box/_support.scss#L34-L41" class="item__source-link" target="_blank">View source</a>
+  
+</div>
+
+
+
+
+
+
+  
+    
+    
+  <h3 class="item__sub-heading">Description</h3>
+
+  <div class="item__description"><p>By default, this function will throw a Sass error, but allows errors to be stopped during testing,
+with the error saved to <code>$pos-last-error</code> instead so tests can check it was thrown.</p>
+</div>
+
+
+  
+    
+    <h3 class="item__sub-heading">Parameters</h3>
+
+
+
+  <table class="item__parameters">
+    <thead>
+      <tr>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Name</th>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Description</th>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Type</th>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Default value</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="item__parameter">
+          <th scope="row" data-label="name"><code>$error</code></th>
+          <td data-label="desc"><p>The name of the error</p>
+</td>
+          <td data-label="type">
+          
+            String
+          
+          </td>
+          <td data-label="default">
+          
+            &mdash;<span class="visually-hidden"> none</span>
+          
+          </td>
+        </tr>
+      
+        <tr class="item__parameter">
+          <th scope="row" data-label="name"><code>$message</code></th>
+          <td data-label="desc"><p>The error message</p>
+</td>
+          <td data-label="type">
+          
+            String
+          
+          </td>
+          <td data-label="default">
+          
+            &mdash;<span class="visually-hidden"> none</span>
+          
+          </td>
+        </tr>
+      
+    </tbody>
+  </table>
+
+
+
+  
+    
+    
+  <h3 class="item__sub-heading">Returns</h3>
+
+  <p class="sassdoc__item-description"><p>A map of offsets to be rendered as CSS properties</p>
+
+  
+    Map
+  
+  </p>
+
+
+  
+    
+    
+
+  
+    
+    
+
+  
+    
+    
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+
+  
+    
+    
+
+
+
+
+  
+    
+    
+
+  
+    
+    
+  
+    
+    
+
+  
+
+
+
+</section>
+              
+            </section>
+          
+        
+
+      </section>
+    
+
   
 
 
@@ -94,7 +341,7 @@
           
 
           <!-- Version -->
-          <span class="project-info__version"> - v0.0.5</span>
+          <span class="project-info__version"> - v0.0.6</span>
 
           <!-- License -->
           
