@@ -1,6 +1,5 @@
 @include describe("box-process-arbitrary-value") {
 
-
  @each $propery in $box-valid-single-properties {
 
    @include describe("with #{$propery} and single united value") {
@@ -80,4 +79,53 @@
       }
     }
   }
+
+  // Errors
+  // -----------------------------------------------------------------------------------------------
+
+  @include describe("if a singular property is passed with multiple values") {
+    @include it("should throw a box-argument-count-error") {
+      @include reset-errors();
+      $result: box-process-arbitrary-value(margin-top, 1px 2px);
+      @include should(
+        expect(
+          $box-last-error
+        ),
+        to( equal(
+          $box-argument-count-error
+        ))
+      );
+    }
+  }
+
+  @include describe("if a property is passed that isnt supported") {
+    @include it("should throw a box-unsupported-key-error") {
+      @include reset-errors();
+      $result: box-process-arbitrary-value(xxx, 1px);
+      @include should(
+        expect(
+          $box-last-error
+        ),
+        to( equal(
+          $box-unsupported-key-error
+        ))
+      );
+    }
+  }
+
+  @include describe("if a value is passed that isnt supported") {
+    @include it("should throw a box-unsupported-value-error") {
+      @include reset-errors();
+      $result: box-process-arbitrary-value(margin-top, xxx);
+      @include should(
+        expect(
+          $box-last-error
+        ),
+        to( equal(
+          $box-unsupported-value-error
+        ))
+      );
+    }
+  }
+
 }

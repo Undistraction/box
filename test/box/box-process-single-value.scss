@@ -1,28 +1,8 @@
 @include describe("box-process-single-value") {
 
-  // $box-valid-single-arguments: (
-  //                                 margin-top: vertical,
-  //                                 margin-right: horizontal,
-  //                                 margin-bottom: vertical,
-  //                                 margin-left horizontal,
-  //                                 padding-top: vertical,
-  //                                 padding-right horizontal,
-  //                                 padding-bottom: vertical,
-  //                                 padding-left horizontal,
-  //                                 border-top: vertical,
-  //                                 border-right horizontal,
-  //                                 border-bottom: vertical,
-  //                                 border-left horizontal
-  //                               );
-
-  // @each $property, $orientation in $box-valid-single-arguments {
-
-  // }
-
   @each $orientation in $box-orientations {
 
     @include describe("with single united value") {
-
       @include it("should return that value") {
         @include should(
           expect(
@@ -36,4 +16,51 @@
     }
   }
 
+  // Errors
+  // -----------------------------------------------------------------------------------------------
+
+  @include describe("if multiple values are passed") {
+    @include it("should throw a box-argument-count-error") {
+      @include reset-errors();
+      $result: box-process-arbitrary-value(margin-top, 1px 2px);
+      @include should(
+        expect(
+          $box-last-error
+        ),
+        to( equal(
+          $box-argument-count-error
+        ))
+      );
+    }
+  }
+
+  @include describe("if a property is passed that isnt supported") {
+    @include it("should throw a box-unsupported-key-error") {
+      @include reset-errors();
+      $result: box-process-arbitrary-value(xxx, 1px);
+      @include should(
+        expect(
+          $box-last-error
+        ),
+        to( equal(
+          $box-unsupported-key-error
+        ))
+      );
+    }
+  }
+
+  @include describe("if a value is passed that isnt supported"){
+    @include it("should throw a box-unsupported-value-error") {
+      @include reset-errors();
+      $result: box-process-single-value(margin-top, xxx);
+      @include should(
+        expect(
+          $box-last-error
+        ),
+        to( equal(
+          $box-unsupported-value-error
+        ))
+      );
+    }
+  }
 }
