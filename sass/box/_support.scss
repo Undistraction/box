@@ -16,6 +16,30 @@ $box-valid-single-properties:  margin-top
 
 $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-properties);
 
+// Errors
+$box-argument-count-error: "Box Argument Count Error";
+$box-unsupported-key-error: "Box Unsupported Key Error";
+$box-unsupported-value-error: "Box Unsupported Value Error";
+$box-last-error: null;
+$box-under-test: false;
+
+/**
+ * By default, this function will throw a Sass error, but allows errors to be stopped during testing,
+ * with the error saved to `$pos-last-error` instead so tests can check it was thrown.
+ * @param {String} $error The name of the error
+ * @param {String} $message The error message
+ * @returns {Map} A map of offsets to be rendered as CSS properties
+ * @access private
+ */
+@function box-throw-error($error, $message) {
+  @if $box-under-test {
+    $box-last-error: $error !global;
+  } @else {
+    @error "#{$error} #{$message}";
+  }
+  @return null;
+}
+
 @function box-process-arbitrary-value($key, $value) {
   @if box-is-valid-property($key) {
     @if box-is-single-property($key) {
@@ -23,13 +47,13 @@ $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-pr
         $orientation: box-orientation-of-property($key);
         @return box-process-single-value($value, $orientation);
       } @else {
-        @error "#{$key} only supports a single value, but value was `#{$value}`";
+        @return box-throw-error($box-argument-count-error, "#{$key} only supports a single value, but value was `#{$value}`");
       }
     } @else {
       @return box-process-multiple-values($value);
     }
   } @else {
-    @error "#{$key} is not a supported value";
+    @return box-throw-error($box-unsupported-key-error, "#{$key} is not a supported value");
   }
 }
 
@@ -79,10 +103,8 @@ $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-pr
   @return $values;
 }
 
-// 1. Check if the value maps to one of our keywords and if so, swap out the value
-// This is just a hook to be overridden. By default we just pass back the value
 @function box-parse-value-filter($value, $orientation) {
-  @error "Unsupported value #{$value}";
+  @return box-throw-error($box-unsupported-value-error, "Unsupported value #{$value}");
 }
 
 // Check if value is even
