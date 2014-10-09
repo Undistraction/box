@@ -80,6 +80,33 @@
     }
   }
 
+  // Supported Unitless values & calc
+  // -----------------------------------------------------------------------------------------------
+
+  @each $value in $box-valid-unitless-values {
+    @include it("should support the unitless value") {
+      @include should(
+          expect(
+            box-process-arbitrary-value(margin-top, $value)
+          ),
+          to( equal(
+            $value
+          ))
+        );
+    }
+  }
+
+  @include it("should support calc") {
+    @include should(
+        expect(
+          box-process-arbitrary-value(margin-top, calc(1%+2px))
+        ),
+        to( equal(
+          calc(1%+2px)
+        ))
+      );
+  }
+
   // Errors
   // -----------------------------------------------------------------------------------------------
 
