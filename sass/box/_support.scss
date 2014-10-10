@@ -22,10 +22,11 @@ $box-unsupported-key-error: "Box Unsupported Key Error";
 $box-unsupported-value-error: "Box Unsupported Value Error";
 $box-last-error: null;
 $box-under-test: false;
+$box-error-thrown: false;
 
 /**
  * By default, this function will throw a Sass error, but allows errors to be stopped during testing,
- * with the error saved to `$pos-last-error` instead so tests can check it was thrown.
+ * with the error saved to `$box-last-error` instead so tests can check it was thrown.
  * @param {String} $error The name of the error
  * @param {String} $message The error message
  * @returns {Map} A map of offsets to be rendered as CSS properties
@@ -33,7 +34,10 @@ $box-under-test: false;
  */
 @function box-throw-error($error, $message) {
   @if $box-under-test {
-    $box-last-error: $error !global;
+    @if not $box-error-thrown {
+      $box-error-thrown: true !global;
+      $box-last-error: $error !global;
+    }
   } @else {
     @error "#{$error} #{$message}";
   }
