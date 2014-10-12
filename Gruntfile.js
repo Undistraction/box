@@ -83,6 +83,22 @@ module.exports = function(grunt) {
       }
     },
 
+    // Shell
+    shell: {
+        options: {
+            stderr: false
+        },
+        ghpages: {
+            command: [
+              "git checkout gh-pages",
+              "git checkout master ./docs",
+              "git add -A",
+              "git c -m 'docs: Update Docs to v<%= pkg.version %>'",
+              "git push origin gh-pages"
+            ].join('&&')
+        }
+    },
+
     // Versioning
     bump: {
       options: {
@@ -107,6 +123,6 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['test', 'watch']);
   grunt.registerTask('build', ['test', 'sassdoc', 'concat']);
   grunt.registerTask('docs', ['sassdoc', 'open:docs']);
-  grunt.registerTask('patch', ['bump-only:patch', 'sassdoc', 'build', 'bump-commit']);
-  grunt.registerTask('minor', ['bump-only:minor', 'sassdoc', 'build', 'bump-commit']);
+  grunt.registerTask('patch', ['bump-only:patch', 'sassdoc', 'build', 'bump-commit', 'shell:ghpages']);
+  grunt.registerTask('minor', ['bump-only:minor', 'sassdoc', 'build', 'bump-commit', 'shell:ghpages']);
 };
