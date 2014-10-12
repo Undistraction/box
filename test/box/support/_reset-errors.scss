@@ -1,5 +1,0 @@
-@mixin reset-errors() {
-  $box-last-error: null !global;
-  $box-under-test: true !global;
-  $box-error-thrown: false !global;
-}

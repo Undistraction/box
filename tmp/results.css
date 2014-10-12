@@ -1,0 +1,391 @@
+@charset "UTF-8";
+/*! sassyjson - v1.1.8 - 2014-06-01 */
+/**
+ * Box
+ * A set of mixins for setting an element's box properties with support for custom units
+ *
+ * Github: https://github.com/Undistraction/position
+ * Docs: http://undistraction.github.io/position/docs
+ */
+/**
+ * @author Pedr Browne
+ * @group Support
+ * @access private
+ */
+/**
+ * Possible orientations for each box property
+ */
+/**
+ * Values without a unit that are accepted without being parsed
+ */
+/**
+ * Valid properties that accept multiple values
+ */
+/**
+ * Valid properties that accept a single value
+ */
+/**
+ * All valid properties
+ */
+/**
+ * Error thrown when too many arguments are supplied to a property
+ */
+/**
+ * Error thrown when a property is unsupported
+ */
+/**
+ * Error thrown when a value is invalid
+ */
+/**
+ * Process a property and value, discovering if the property is supported and whether it accepts
+ * singular or multiple values.
+ *
+ * @param {String} $property
+ *  The box property
+ *
+ * @param {String} $value
+ *  The box property value
+ *
+ * @return {String}
+ *  The processed value
+ *
+ * @throws $box-argument-count-error
+ * @throws $box-invalid-property-error
+ */
+/**
+ * Check if the $value is already valid and process it if not
+ *
+ * @param {String} $value
+ *   The value to process
+ *
+  * @param {String} $value
+ *   The orientation of that value (horizontal | vertical)
+ */
+/**
+ * Check if multiple $values are already valid and process any that are not.
+ *
+ * @param {String} $values
+ *  The values to process
+ *
+ * @return {Map}
+ *  The processed values
+ */
+/**
+ * Expand values to 4 separate values to streamline processing.
+ *
+ * @param {String} $values
+ *  The values to process
+ *
+ * @return {String}
+ *  The expanded values
+ */
+/**
+ * Is the supplied property a property that is supported?
+ *
+ * @param {String} $property
+ *  The property
+ *
+ * @return {Bool}
+ *  Is the property valid?
+ */
+/**
+ * Does the supplied property take a single value?
+ *
+ * @param {String} $property
+ *  The property
+ *
+ * @return {Bool}
+ *  Does the property accept a single value?
+ */
+/**
+ * Is the property related to the horizontal or vertical axis?
+ *
+ * @param {String} $property
+ *  The property
+ *
+ * @return {String}
+ *  The orientation of the property (horizontal | vertical)
+ */
+/**
+ * Error thrown when an item is followed by an invalid value
+ */
+/**
+ * By default, this function will throw a Sass error, but allows errors to be stopped during testing,
+ * with the error saved to `$box-last-error` instead so tests can check it was thrown.
+ *
+ * @param {String} $error
+ *  The name of the error
+ *
+ * @param {String} $message
+ *  The error message
+ *
+ * @returns {Map}
+ *  A map of offsets to be rendered as CSS properties
+ */
+/**
+ * Overridable hook to handle unrecognised values. By default it will throw an error.
+ *
+ * @param {String} $value
+ *  An unrecognised value
+ *
+ * @param {orientation}
+ *  The orientation of the value's keyword (horizontal | vertical)
+ *
+ * @returns {null}
+ *
+ * @throws $box-unsupported-value-error
+ */
+/**
+ * Is this valid already valid or does it need to be parsed?
+ *
+ * @param {String} $value
+ *  The value to be checked
+ *
+ * @returns {Bool}
+ *  Does the value need to be pa
+ */
+/**
+ * Was the value a valid one; either united, supported unitless or calc
+ *
+ * @param {String} $value
+ *  The value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value valid?
+ */
+/**
+ * Determine if the value is a valid number with a unit
+ *
+ * @param {String} $value
+ *  Value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value number with a unit?
+ *
+ */
+/**
+ * Determine if the value is a valid unitless value.
+ *
+ * @param {String} $value
+ *  Value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value unitless?
+ */
+/**
+ * Determine if the value is a `calc()` expression.
+ *
+ * @param {String} $value
+ *  Value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value a `calc` expression?
+ */
+/**
+ * Check a number to see if it is even.
+ *
+ * @param {Number} $value
+ *  The value to check.
+ *
+ * @returns {Bool}
+ *  Is the number even?
+ */
+/**
+ * @author Pedr Browne
+ * @group API
+ * @access public
+ */
+/**
+ * Render the supplied box-properties.
+ *
+ * @param {Map} $map
+ *  Map of box properties. The following properties / keys are supported:
+ *
+ *  - margin
+ *  - margin-top
+ *  - margin-right
+ *  - margin-bottom
+ *  - margin-left
+ *  - border
+ *  - border-top
+ *  - border-right
+ *  - border-bottom
+ *  - border-left
+ *  - padding
+ *  - padding-top
+ *  - padding-right
+ *  - padding-bottom
+ *  - padding-left
+ *
+ * @output
+ *  The supplied properties.
+ *
+ * @example scss - Usage
+ *  .element {
+ *    @include box(
+ *      (
+ *        margin: 5px,
+ *        padding: 20px,
+ *        padding-left: 2px,
+ *        border: 2px 3px 2px
+ *      )
+ *    );
+ *  }
+ *
+ * @example css - CSS Output
+ *  .element {
+ *    margin: 5px;
+ *    padding: 20px;
+ *    padding-left: 2px;
+ *    border: 2px 3px 2px;
+ *  }
+ */
+/**
+ * Render the supplied margin.
+ *
+ * @param {String} $value
+ *  The `margin` value.
+ *
+ * @output
+ *  The `margin` property and value.
+ */
+/**
+ * Render the supplied margin-top.
+ *
+ * @param {String} $value
+ *  The `margin-top` value.
+ *
+ * @output
+ *  The `margin-top` property and value.
+ */
+/**
+ * Render the supplied margin-right.
+ *
+ * @param {String} $value
+ *  The `margin-right` value.
+ *
+ * @output
+ *  The `margin-right` property and value.
+ */
+/**
+ * Render the supplied margin-bottom.
+ *
+ * @param {String} $value
+ *  The `margin-bottom` value.
+ *
+ * @output
+ *  The `margin-bottom` property and value.
+ */
+/**
+ * Render the supplied margin-left.
+ *
+ * @param {String} $value
+ *  The `margin-left` value.
+ *
+ * @output
+ *  The `margin-left` property and value.
+ */
+/**
+ * Render the supplied padding.
+ *
+ * @param {String} $value
+ *  The `padding` value.
+ *
+ * @output
+ *  The `padding` property and value.
+ */
+/*
+ * Render the supplied padding-top.
+ *
+ * @param {String} $value
+ *  The `padding-top` value.
+ *
+ * @output
+ *  The `padding-top` property and value.
+ */
+/**
+ * Render the supplied padding-right.
+ *
+ * @param {String} $value
+ *  The `padding-right` value.
+ *
+ * @output
+ *  The `padding-right` property and value.
+ */
+/**
+ * Render the supplied padding-bottom.
+ *
+ * @param {String} $value
+ *  The `padding-bottom` value.
+ *
+ * @output
+ *  The `padding-bottom` property and value.
+ */
+/**
+ * Render the supplied padding-left.
+ *
+ * @param {String} $value
+ *  The `padding-left` value.
+ *
+ * @output
+ *  The `padding-left` property and value.
+ */
+/**
+ * Render the supplied border.
+ *
+ * @param {String} $value
+ *  The `border` value.
+ *
+ * @output
+ *  The `border` property and value.
+ */
+/**
+ * Render the supplied border-top.
+ *
+ * @param {String} $value
+ *  The `border-top` value.
+ *
+ * @output
+ *  The `border-top` property and value.
+ */
+/**
+ * Render the supplied border-right.
+ *
+ * @param {String} $value
+ *  The `border-right` value.
+ *
+ * @output
+ *  The `border-right` property and value.
+ */
+/**
+ * Render the supplied border-bottom.
+ *
+ * @param {String} $value
+ *  The `border-bottom` value.
+ *
+ * @output
+ *  The `border-bottom` property and value.
+ */
+/**
+ * Render the supplied border-left.
+ *
+ * @param {String} $value
+ *  The `border-left` value.
+ *
+ * @output
+ *  The `border-left` property and value.
+ */
+/* >> Bootcamp >> */
+Test Results {
+  Success: true;
+  Stats:  ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔;
+  Tests: 43;
+  Asserts: 43;
+  Passed: 43;
+  Failed: 0;
+  Skipped: 0;
+}
+
+/* << Bootcamp << */
+
+/*# sourceMappingURL=results.css.map */
