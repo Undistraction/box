@@ -1,15 +1,11 @@
 module.exports = function(grunt) {
 
-  // Modules
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-open');
-  grunt.loadNpmTasks('grunt-bump');
+  // Load all available grunt tasks
+  require('load-grunt-tasks')(grunt,'bootcamp');
+  // Bootcamp doesn't use a `grunt-` prefix so load it manually
   grunt.loadNpmTasks('bootcamp');
-  grunt.loadNpmTasks('grunt-sassdoc');
 
-  // Grunt Tasks
+  // Configure tasks
   grunt.initConfig({
 
     dir : {
@@ -22,12 +18,13 @@ module.exports = function(grunt) {
     // Concat
     concat: {
       options: {
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+        separator: '\n\n',
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> – <%= grunt.template.today("dd.mm.yyyy") %> */\n\n',
       },
       dist: {
         src: [
           '<%= dir.src %>/box/_support.scss',
-          '<%= dir.src %>/_box.scss'
+          '<%= dir.src %>/box/_api.scss'
         ],
         dest: '<%= dir.dist %>/_<%= pkg.name.toLowerCase() %>.scss',
       },
@@ -103,14 +100,13 @@ module.exports = function(grunt) {
         globalReplace: false
       }
     }
-
   });
 
-  // Tasks
+  // Define own tasks
   grunt.registerTask('test', ['sass', 'bootcamp']);
   grunt.registerTask('dev', ['test', 'watch']);
   grunt.registerTask('build', ['test', 'sassdoc', 'concat']);
   grunt.registerTask('docs', ['sassdoc', 'open:docs']);
-  grunt.registerTask('patch', ['bump-only:patch', 'sassdoc', 'bump-commit']);
-  grunt.registerTask('minor', ['bump-only:patch', 'sassdoc', 'bump-commit']);
+  grunt.registerTask('patch', ['bump-only:patch', 'sassdoc', 'build', 'bump-commit']);
+  grunt.registerTask('minor', ['bump-only:minor', 'sassdoc', 'build', 'bump-commit']);
 };
