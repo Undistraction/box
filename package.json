@@ -1,6 +1,6 @@
 {
   "name": "Box",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A set of mixins for setting an element's box properties with support for custom units",
   "main": "Gruntfile.js",
   "directories": {
