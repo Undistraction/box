@@ -130,6 +130,8 @@ $box-invalid-value-error: "Invalid Value Error";
     }
     $processed-values: append($processed-values, $value);
   }
+  $processed-values: box-optimise-four-values($processed-values);
+
   @return $processed-values;
 }
 
@@ -158,6 +160,40 @@ $box-invalid-value-error: "Invalid Value Error";
     }
   }
   @return $values;
+}
+
+/**
+ * Optimise four values down to as few values as possible.
+ *
+ * @param {String} $values
+ *  The values to process
+ *
+ * @return {String}
+ *  The optimised values
+ */
+@function box-optimise-four-values($values) {
+  $top: nth($values, 1);
+  $right: nth($values, 2);
+  $bottom: nth($values, 3);
+  $left: nth($values, 4);
+
+  $result: null;
+
+  // All same
+  @if $top == $right and $right == $bottom and $bottom == $left {
+     $result: ($top);
+  // top + bottom same
+  } @else if $top == $bottom {
+      @if $right == $left  {
+        // left + right same
+        $result: ($top $right);
+      }
+  }@else if $right == $left {
+    $result: ($top $right $bottom);
+  } @else {
+    $result: $values;
+  }
+  @return $result;
 }
 
 /**

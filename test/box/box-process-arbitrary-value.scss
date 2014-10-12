@@ -24,13 +24,13 @@
 
       @include describe("#{property} with a value of a") {
 
-        @include it("should return a a a a") {
+        @include it("should return a") {
           @include should(
             expect(
               box-process-arbitrary-value($propery, 1px)
             ),
             to( equal(
-              1px 1px 1px 1px
+              1px
             ))
           );
         }
@@ -38,13 +38,13 @@
 
       @include describe("#{property} with a value of a b") {
 
-        @include it("should return a b a b") {
+        @include it("should return a b") {
           @include should(
             expect(
               box-process-arbitrary-value($propery, 1px 2px)
             ),
             to( equal(
-              1px 2px 1px 2px
+              1px 2px
             ))
           );
         }
@@ -52,13 +52,13 @@
 
       @include describe("#{property} with a value of a b c") {
 
-        @include it("should return a b c b") {
+        @include it("should return a b c") {
           @include should(
             expect(
               box-process-arbitrary-value($propery, 1px 2px 3px)
             ),
             to( equal(
-              1px 2px 3px 2px
+              1px 2px 3px
             ))
           );
         }
