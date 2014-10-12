@@ -1,7 +1,28 @@
+/**
+ * @author Pedr Browne
+ * @group Support
+ * @access private
+ **/
+
+/**
+ * Possible orientations for each box property
+ */
 $box-orientations: horizontal vertical;
-$box-valid-unitless-values:  auto initial inherit 0;
-$box-valid-multiple-properties:  margin padding border;
-$box-valid-single-properties:  margin-top
+
+/**
+ * Values without a unit that are accepted without being parsed
+ */
+$box-valid-unitless-values: auto initial inherit 0;
+
+/**
+ * Valid properties that accept multiple values
+ */
+$box-valid-multiple-properties: margin padding border;
+
+/**
+ * Valid properties that accept a single value
+ */
+$box-valid-single-properties: margin-top
                               margin-right
                               margin-bottom
                               margin-left
@@ -14,73 +35,97 @@ $box-valid-single-properties:  margin-top
                               border-bottom
                               border-left;
 
+/**
+ * All valid properties
+ */
 $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-properties);
 
-// Errors
-$box-argument-count-error: "Box Argument Count Error";
-$box-unsupported-key-error: "Box Unsupported Key Error";
-$box-unsupported-value-error: "Box Unsupported Value Error";
-$box-last-error: null;
-$box-under-test: false;
-$box-error-thrown: false;
+/**
+ * Error thrown when too many arguments are supplied to a property
+ */
+$box-argument-count-error: "Argument Count Error";
 
 /**
- * By default, this function will throw a Sass error, but allows errors to be stopped during testing,
- * with the error saved to `$box-last-error` instead so tests can check it was thrown.
- * @param {String} $error The name of the error
- * @param {String} $message The error message
- * @returns {Map} A map of offsets to be rendered as CSS properties
- * @access private
+ * Error thrown when a property is unsupported
  */
-@function box-throw-error($error, $message) {
-  @if $box-under-test {
-    @if not $box-error-thrown {
-      $box-error-thrown: true !global;
-      $box-last-error: $error !global;
-    }
-  } @else {
-    @error "#{$error} #{$message}";
-  }
-  @return null;
-}
+$box-invalid-property-error: "Invalid Property Error";
 
-@function box-process-arbitrary-value($key, $value) {
-  @if box-is-valid-property($key) {
-    @if box-is-single-property($key) {
+/**
+ * Error thrown when a value is invalid
+ */
+$box-invalid-value-error: "Invalid Value Error";
+
+/**
+ * Process a property and value, discovering if the property is supported and whether it accepts
+ * singular or multiple values.
+ *
+ * @param {String} $property
+ *  The box property
+ *
+ * @param {String} $value
+ *  The box property value
+ *
+ * @return {String}
+ *  The processed value
+ *
+ * @throws $box-argument-count-error
+ * @throws $box-invalid-property-error
+ */
+@function box-process-arbitrary-value($property, $value) {
+  @if box-is-valid-property($property) {
+    @if box-is-single-property($property) {
       @if length($value) == 1 {
-        $orientation: box-orientation-of-property($key);
+        $orientation: box-orientation-of-property($property);
         @return box-process-single-value($value, $orientation);
       } @else {
-        @return box-throw-error($box-argument-count-error, "#{$key} only supports a single value, but value was `#{$value}`");
+        @return box-throw-error($box-argument-count-error, "#{$property} only supports a single value, but value was `#{$value}`");
       }
     } @else {
       @return box-process-multiple-values($value);
     }
   } @else {
-    @return box-throw-error($box-unsupported-key-error, "#{$key} is not a supported value");
+    @return box-throw-error($box-invalid-property-error, "#{$property} is not a supported value");
   }
 }
 
-// Process value if it isn't already a valid number
+/**
+ * Check if the $value is already valid and process it if not
+ *
+ * @param {String} $value
+ *   The value to process
+ *
+  * @param {String} $value
+ *   The orientation of that value (horizontal | vertical)
+ */
 @function box-process-single-value($value, $orientation) {
-  @if box-should-parse-value($value) {
+  @if not box-is-valid-value($value) {
+    // Process if it isn't already a valid value
     $value: box-parse-value-filter($value, $orientation);
   }
   @return $value;
 }
 
+/**
+ * Check if multiple $values are already valid and process any that are not.
+ *
+ * @param {String} $values
+ *  The values to process
+ *
+ * @return {Map}
+ *  The processed values
+ */
 @function box-process-multiple-values($values) {
   $values: box-process-to-four-values($values);
   $processed-values: ();
   $orientation: null;
   @for $i from 1 through length($values) {
     $value: nth($values, $i);
-    @if even($i) {
+    @if is-even($i) {
       $orientation: horizontal;
     } @else {
       $orientation: vertical;
     }
-    @if box-should-parse-value($value) {
+    @if not box-is-valid-value($value) {
       $value: box-parse-value-filter($value, $orientation);
     }
     $processed-values: append($processed-values, $value);
@@ -88,7 +133,15 @@ $box-error-thrown: false;
   @return $processed-values;
 }
 
-// Process all value lists to four values to make processing easy.
+/**
+ * Expand values to 4 separate values to streamline processing.
+ *
+ * @param {String} $values
+ *  The values to process
+ *
+ * @return {String}
+ *  The expanded values
+ */
 @function box-process-to-four-values($values) {
   $length: length($values);
   // Convert all values to 4 values
@@ -107,47 +160,186 @@ $box-error-thrown: false;
   @return $values;
 }
 
-@function box-parse-value-filter($value, $orientation) {
-  @return box-throw-error($box-unsupported-value-error, "Unsupported value #{$value}");
+/**
+ * Is the supplied property a property that is supported?
+ *
+ * @param {String} $property
+ *  The property
+ *
+ * @return {Bool}
+ *  Is the property valid?
+ */
+@function box-is-valid-property($property) {
+  @return not not index($box-valid-properties, $property);
 }
 
-// Check if value is even
-@function even($number) {
-  @return $number % 2 == 0;
-}
-
-// Does the value need to be parsed ?
-@function box-should-parse-value($value) {
-  @return not( box-is-number-with-unit($value)
-            or box-is-valid-unitless($value)
-            or box-is-calc($value));
-}
-
-@function box-is-calc($value) {
- @return str-slice($value + "", 1, 4) == "calc";
-}
-
-@function box-is-valid-unitless($value) {
-  @return not not index($box-valid-unitless-values, $value);
-}
-
-@function box-is-number-with-unit($value) {
-  @return (type-of($value) == number and not unitless($value));
-}
-
-@function box-is-valid-property($value) {
-  @return not not index($box-valid-properties, $value);
-}
-
+/**
+ * Does the supplied property take a single value?
+ *
+ * @param {String} $property
+ *  The property
+ *
+ * @return {Bool}
+ *  Does the property accept a single value?
+ */
 @function box-is-single-property($value) {
   @return not not index($box-valid-single-properties, $value);
 }
 
-@function box-orientation-of-property($value) {
-  $direction: str-slice($value, str-index($value, '-') + 1);
+/**
+ * Is the property related to the horizontal or vertical axis?
+ *
+ * @param {String} $property
+ *  The property
+ *
+ * @return {String}
+ *  The orientation of the property (horizontal | vertical)
+ */
+@function box-orientation-of-property($property) {
+  $direction: str-slice($property, str-index($property, '-') + 1);
   @if not not index(left right, $direction) {
     @return horizontal;
   } @else {
     @return vertical;
   }
+}
+
+// Common
+// TODO: Extract to Glue
+// -------------------------------------------------------------------------------------------------
+
+/**
+ * Error thrown when an item is followed by an invalid value
+ */
+
+$box-invalid-value-error: "Invalid Value Error";
+
+// These items are used in test only
+$box-last-error: null;
+$box-under-test: false;
+$box-error-thrown: false;
+
+/**
+ * By default, this function will throw a Sass error, but allows errors to be stopped during testing,
+ * with the error saved to `$box-last-error` instead so tests can check it was thrown.
+ *
+ * @param {String} $error
+ *  The name of the error
+ *
+ * @param {String} $message
+ *  The error message
+ *
+ * @returns {Map}
+ *  A map of offsets to be rendered as CSS properties
+ */
+@function box-throw-error($error, $message) {
+  @if $box-under-test {
+    @if not $box-error-thrown {
+      $box-error-thrown: true !global;
+      $box-last-error: $error !global;
+    }
+  } @else {
+    @error "#{$error} #{$message}";
+  }
+  @return null;
+}
+
+/**
+ * Overridable hook to handle unrecognised values. By default it will throw an error.
+ *
+ * @param {String} $value
+ *  An unrecognised value
+ *
+ * @param {orientation}
+ *  The orientation of the value's keyword (horizontal | vertical)
+ *
+ * @returns {null}
+ *
+ * @throws $box-unsupported-value-error
+ */
+@function box-parse-value-filter($value, $orientation) {
+  @return box-throw-error($box-invalid-value-error, "Invalid value #{$value}");
+}
+
+/**
+ * Is this valid already valid or does it need to be parsed?
+ *
+ * @param {String} $value
+ *  The value to be checked
+ *
+ * @returns {Bool}
+ *  Does the value need to be pa
+ */
+@function box-is-valid-value($value) {
+  @return box-is-number-with-unit($value)
+       or box-is-valid-unitless($value)
+       or box-is-calc($value);
+}
+
+/**
+ * Was the value a valid one; either united, supported unitless or calc
+ *
+ * @param {String} $value
+ *  The value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value valid?
+ */
+@function box-is-valid-value($value) {
+  @return box-is-number-with-unit($value)
+       or box-is-valid-unitless($value)
+       or box-is-calc($value);
+}
+
+/**
+ * Determine if the value is a valid number with a unit
+ *
+ * @param {String} $value
+ *  Value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value number with a unit?
+ *
+ */
+@function box-is-number-with-unit($value) {
+  @return (type-of($value) == number and not unitless($value));
+}
+
+/**
+ * Determine if the value is a valid unitless value.
+ *
+ * @param {String} $value
+ *  Value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value unitless?
+ */
+@function box-is-valid-unitless($value) {
+  @return not not index($box-valid-unitless-values, $value);
+}
+
+/**
+ * Determine if the value is a `calc()` expression.
+ *
+ * @param {String} $value
+ *  Value to be checked
+ *
+ * @returns {Bool}
+ *  Was the value a `calc` expression?
+ */
+@function box-is-calc($value) {
+ @return str-slice($value + "", 1, 4) == calc;
+}
+
+/**
+ * Check a number to see if it is even.
+ *
+ * @param {Number} $value
+ *  The value to check.
+ *
+ * @returns {Bool}
+ *  Is the number even?
+ */
+@function is-even($number) {
+  @return $number % 2 == 0;
 }
