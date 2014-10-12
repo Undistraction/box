@@ -88,6 +88,7 @@ module.exports = function(grunt) {
         options: {
             stderr: false
         },
+        // Copy docs folder to gh-branch and push it
         ghpages: {
             command: [
               "git checkout gh-pages",
@@ -123,6 +124,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['test', 'watch']);
   grunt.registerTask('build', ['test', 'sassdoc', 'concat']);
   grunt.registerTask('docs', ['sassdoc', 'open:docs']);
-  grunt.registerTask('patch', ['bump-only:patch', 'sassdoc', 'build', 'bump-commit', 'shell:ghpages']);
-  grunt.registerTask('minor', ['bump-only:minor', 'sassdoc', 'build', 'bump-commit', 'shell:ghpages']);
+  grunt.registerTask('deploy', ['sassdoc', 'build', 'bump-commit', 'shell:ghpages'])
+  grunt.registerTask('patch', ['bump-only:patch', 'deploy']);
+  grunt.registerTask('minor', ['bump-only:minor', 'deploy']);
 };
