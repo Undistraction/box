@@ -6,7 +6,7 @@ Aswell as enforcing a consistant approach to setting box-properties, it offers a
 
 ## Docs
 
-You can view the docs online [here](http://undistraction.github.io/position/docs/) or locally in Chrome by running:
+You can view the docs online [here](http://undistraction.github.io/box/docs/) or locally in Chrome by running:
 
 ```
 $ grunt docs
