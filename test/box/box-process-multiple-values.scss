@@ -60,7 +60,7 @@
   // -----------------------------------------------------------------------------------------------
 
   @include describe("if a property is passed that isnt supported") {
-    @include it("should throw a box-unsupported-key-error") {
+    @include it("should throw a box-invalid-property-error") {
       @include reset-errors();
       $result: box-process-arbitrary-value(xxx, 1px);
       @include should(
@@ -68,7 +68,7 @@
           $box-last-error
         ),
         to( equal(
-          $box-unsupported-key-error
+          $box-invalid-property-error
         ))
       );
     }
@@ -76,7 +76,7 @@
 
   @include describe("if a value is passed that isnt supported") {
 
-    @include it("should throw a box-unsupported-value-error") {
+    @include it("should throw a box-invalid-value-error") {
       @include reset-errors();
       $result: box-process-multiple-values(xxx xxx);
       @include should(
@@ -84,7 +84,7 @@
           $box-last-error
         ),
         to( equal(
-          $box-unsupported-value-error
+          $box-invalid-value-error
         ))
       );
     }
