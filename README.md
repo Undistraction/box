@@ -1,8 +1,59 @@
 # Box
 
-Box is a set of mixins for setting an element's box properties with support for custom units.
+Box is a set of mixins for setting an element's box properties.
 
-There are mixins to cover all the box properties, both those that accept multiple arguments and those that accept single. For example for `padding` you have the following mixins:
+Aswell as enforcing a consistant approach to setting box-properties, it offers a hook for your own handling of unknown values, allowing you to define your own custom values. By avoiding explicit declaration of values, this allows your custom units to flex across breakpoints.
+
+## Docs
+
+You can view the docs online [here](http://undistraction.github.io/position/docs/) or locally in Chrome by running:
+
+```
+$ grunt docs
+```
+
+There is also a Grunt task to build the docs:
+
+```
+$ grunt sassdoc
+```
+
+## Tests
+
+Tests are available from the excellent [Bootcamp](https://github.com/thejameskyle/bootcamp) and can
+be run using:
+
+```
+$ grunt test
+```
+
+## API
+
+### Basic API
+
+There are mixins to cover all the box properties, both those that accept multiple arguments and those that accept single. Each mixin shadows the css property it represents, accepting the same values including `auto`, 'initial`, `inherit` and `calc`, and with `margin`, `border` and `padding` accepting multiple values.
+
+For `margin` you have the following mixins:
+
+```
+@include margin(10px 20px);
+@include margin-top(10px);
+@include margin-right(10px);
+@include margin-bottom(10px);
+@include margin-left(10px);
+```
+
+For `border` you have the following mixins:
+
+```
+@include border(10px 20px);
+@include border-top(10px);
+@include border-right(10px);
+@include border-bottom(10px);
+@include border-left(10px);
+```
+
+For `padding` you have the following mixins:
 
 ```
 @include padding(10px 20px);
@@ -12,7 +63,7 @@ There are mixins to cover all the box properties, both those that accept multipl
 @include padding-left(10px);
 ```
 
-You also have a single `box` mixin that allows you to set all box properties at the same time by passing a map:
+There is also a single box mixin that allows you to set all box properties at the same time by passing a map:
 
 ```
 @include box(
@@ -25,39 +76,54 @@ You also have a single `box` mixin that allows you to set all box properties at 
 );
 ```
 
-This is all nice, but where things get interesting is that box offers a function called `box-parse-value-filter` that does nothing by default but can be overriden to hook you own unit handling into the mix. To enforce consistancy and improve readability on your project you can use a set of custom units and tie them into a unit of rhythm:
+### Using custom values
+
+Where things get interesting is a function called `box-parse-value-filter`. This function is called when a value isn't recognised (it is an unknown, unitless value). By default it will throw an error, but by overriding this function (by declaring a function with the same name and signiture after you've imported box), you can process this value yourself.
+
+For example, most projects are full hardcoded box-property declarations which quickly become inconsistant and ad-hoc. Why not enforce consistancy and improve readability on your projectby using a set of custom units:
 
 ```
 
 // Define a map of units
-$rhythm-units-map: (
-  single: 1,
-  double: 2,
-  triple: 3,
-  quadruple: 4,
-  half: 0.5,
-  third: 0.33333333333,
-  quarter: 0.25
+$custom-units-map: (
+  hairline: 1px,
+  single: 10px,
+  double: 20px,
+  triple: 30px,
+  quadruple: 40px,
+  half: 5px,
+  third: 3.33333333px,
+  quarter: 2,5px
 );
 
-// Define different rhythm units for vertical and horizontal to allow for optical distortion
-$rhythm-map: (
-  vertical: 12px,
-  horizontal: 16px
-);
-
-// Define a function that overrides the hook
-// If box encounters an unrecognised unitless value it will call this function to resolve it.
-// In this example, the function looks that value up on our `$rythm-units-map` and multiplies
-// it by the rhythm for the property's orientation.
+// Override
 @function box-parse-value-filter($key, $orientation){
-  @if map-has-key($rhythm-units-map, $key) {
-    $unit: map-get($rhythm-units-map, $key);
-    @return map-get($rhythm-map, $orientation) * $unit;
+  @if map-has-key($custom-units-map, $key) {
+    @return map-get($custom-units-map, $key);
   } @else {
-    @error "Unsupported key #{$key}";
+    // If it isn't recognised throw an error
+    // Unfortunately Sass doesn't allow us to call super.
+    @return box-throw-error($box-invalid-value-error, "Invalid value #{$value}");
   }
 }
+
+// Then you can use
+
+.Example {
+  @include box(
+    (
+      padding: single,
+      margin-bottom: double,
+      border: hairline
+    )
+  );
+}
+
 ```
 
-Docs and Media Query support coming soon.
+There is a lot more that you can do with this simple functionality. For example you could use unitless values in the `$custom-units-map` and multiply them with a vertical rhythm unit, or
+use breakpoint context to tweak these units across breakpoints, so that a declaration of `single` can mean different values at different breakpoints. *More examples coming soon.*
+
+## Dependencies & Compatability
+
+It has no dependencies on other Sass libs and should work with Sass 3.3 and up, though it's currently only tested in 3.4.
