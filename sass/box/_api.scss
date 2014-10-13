@@ -65,8 +65,7 @@
  *  The `margin` property and value.
  */
 @mixin margin($value) {
-  $value: box-process-multiple-values($value);
-  margin: #{$value};
+  margin: box-process-multiple-values($value);
 }
 
 /**
@@ -79,8 +78,7 @@
  *  The `margin-top` property and value.
  */
 @mixin margin-top($value) {
-  $value: box-process-single-value($value, vertical);
-  margin-top: #{$value};
+  margin-top: box-process-single-value($value, vertical);
 }
 
 /**
@@ -93,8 +91,7 @@
  *  The `margin-right` property and value.
  */
 @mixin margin-right($value) {
-  $value: box-process-single-value($value, horizontal);
-  margin-right: #{$value};
+  margin-right: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -107,8 +104,7 @@
  *  The `margin-bottom` property and value.
  */
 @mixin margin-bottom($value) {
-  $value: box-process-single-value($value, vertical);
-  margin-bottom: #{$value};
+  margin-bottom: box-process-single-value($value, vertical);
 }
 
 /**
@@ -121,8 +117,7 @@
  *  The `margin-left` property and value.
  */
 @mixin margin-left($value) {
-  $value: box-process-single-value($value, horizontal);
-  margin-left: #{$value};
+  margin-left: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -135,8 +130,7 @@
  *  The `padding` property and value.
  */
 @mixin padding($value) {
-  $value: box-process-multiple-values($value);
-  padding: #{$value};
+  padding: box-process-multiple-values($value);
 }
 
 /*
@@ -150,8 +144,7 @@
  */
 
 @mixin padding-top($value) {
-  $value: box-process-single-value($value, vertical);
-  padding-top: #{$value};
+  padding-top: box-process-single-value($value, vertical);
 }
 
 /**
@@ -164,8 +157,7 @@
  *  The `padding-right` property and value.
  */
 @mixin padding-right($value) {
-  $value: box-process-single-value($value, horizontal);
-  padding-right: #{$value};
+  padding-right: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -178,8 +170,7 @@
  *  The `padding-bottom` property and value.
  */
 @mixin padding-bottom($value) {
-  $value: box-process-single-value($value, vertical);
-  padding-bottom: #{$value};
+  padding-bottom: box-process-single-value($value, vertical);
 }
 
 /**
@@ -192,8 +183,7 @@
  *  The `padding-left` property and value.
  */
 @mixin padding-left($value) {
-  $value: box-process-single-value($value, horizontal);
-  padding-left: #{$value};
+  padding-left: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -206,8 +196,7 @@
  *  The `border` property and value.
  */
 @mixin border($value) {
-  $value: box-process-multiple-values($value);
-  border: #{$value};
+  border: box-process-multiple-values($value);
 }
 
 /**
@@ -220,8 +209,7 @@
  *  The `border-top` property and value.
  */
 @mixin border-top($value) {
-  $value: box-process-single-value($value, vertical);
-  border-top: #{$value};
+  border-top: box-process-single-value($value, vertical);
 }
 
 /**
@@ -234,8 +222,7 @@
  *  The `border-right` property and value.
  */
 @mixin border-right($value) {
-  $value: box-process-single-value($value, horizontal);
-  border-right: #{$value};
+  border-right: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -248,8 +235,7 @@
  *  The `border-bottom` property and value.
  */
 @mixin border-bottom($value) {
-  $value: box-process-single-value($value, vertical);
-  border-bottom: #{$value};
+  border-bottom: box-process-single-value($value, vertical);
 }
 
 /**
@@ -262,6 +248,5 @@
  *  The `border-left` property and value.
  */
 @mixin border-left($value) {
-  $value: box-process-single-value($value, horizontal);
-  border-left: #{$value};
+  border-left: box-process-single-value($value, horizontal);
 }
