@@ -8,7 +8,7 @@
   
   <meta charset="utf-8" />
 
-<title>SassDoc - v0.0.14</title>
+<title>SassDoc - v0.0.15</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width">
@@ -26,7 +26,7 @@
   <div class="sidebar__header">
   <h1 class="sidebar__title">
     
-      <a href="https://github.com/Undistraction/Box">SassDoc - v0.0.14</a>
+      <a href="https://github.com/Undistraction/Box">SassDoc - v0.0.15</a>
     
   </h1>
 </div>
@@ -83,6 +83,15 @@
             
             <li class="sidebar__item  sassdoc__item" data-name="box-process-to-four-values" data-type="function">
               <a href="#function-box-process-to-four-values">box-process-to-four-values
+              <span class="sidebar__annotation  sidebar__annotation--private">private</span>
+              
+              </a>
+            </li>
+            
+          
+            
+            <li class="sidebar__item  sassdoc__item" data-name="box-optimise-four-values" data-type="function">
+              <a href="#function-box-optimise-four-values">box-optimise-four-values
               <span class="sidebar__annotation  sidebar__annotation--private">private</span>
               
               </a>
@@ -952,12 +961,14 @@ singular or multiple values.</p>
     }
     $processed-values: append($processed-values, $value);
   }
+  $processed-values: box-optimise-four-values($processed-values);
+
   @return $processed-values;
  }"
     data-collapsed="@function box-process-multiple-values($values) { ... }"><code>@function box-process-multiple-values($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L117-L134" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L117-L136" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1144,7 +1155,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-process-to-four-values($values) { ... }"><code>@function box-process-to-four-values($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L145-L161" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L147-L163" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1273,6 +1284,200 @@ singular or multiple values.</p>
 
 </section>
               
+                <section class="main__item  item" id="function-box-optimise-four-values">
+
+<h3 class="item__heading">
+  
+    <span class="item__access">[private]</span>
+  
+
+  <a class="item__name" href="#function-box-optimise-four-values">box-optimise-four-values</a>
+
+  
+
+  
+</h3>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+<div class="relative  clear  code--collapsed">
+  <pre class="item__code  item__code--togglable  language-scss"
+    data-current-state="collapsed"
+    data-expanded="@function box-optimise-four-values($values) { 
+  $top: nth($values, 1);
+  $right: nth($values, 2);
+  $bottom: nth($values, 3);
+  $left: nth($values, 4);
+
+  $result: null;
+
+  // All same
+  @if $top == $right and $right == $bottom and $bottom == $left {
+     $result: ($top);
+  // top + bottom same
+  } @else if $top == $bottom {
+      @if $right == $left  {
+        // left + right same
+        $result: ($top $right);
+      }
+  }@else if $right == $left {
+    $result: ($top $right $bottom);
+  } @else {
+    $result: $values;
+  }
+  @return $result;
+ }"
+    data-collapsed="@function box-optimise-four-values($values) { ... }"><code>@function box-optimise-four-values($values) { ... }</code></pre>
+
+  
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L174-L197" class="item__source-link" target="_blank">View source</a>
+  
+</div>
+
+
+
+
+
+
+  
+    
+    
+  <h3 class="item__sub-heading">Description</h3>
+
+  <div class="item__description"><p>Optimise four values down to as few values as possible.</p>
+</div>
+
+
+  
+    
+    <h3 class="item__sub-heading">Parameters</h3>
+
+
+
+  <table class="item__parameters">
+    <thead>
+      <tr>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Name</th>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Description</th>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Type</th>
+        <th scope="col"><span class="visually-hidden"> parameter </span>Default value</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="item__parameter">
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The values to process</p>
+</td>
+          <td data-label="type">
+          
+            String
+          
+          </td>
+          <td data-label="default">
+          
+            &mdash;<span class="visually-hidden"> none</span>
+          
+          </td>
+        </tr>
+      
+    </tbody>
+  </table>
+
+
+
+  
+    
+    
+  <h3 class="item__sub-heading">Returns</h3>
+
+  <p class="sassdoc__item-description"><p>The optimised values</p>
+
+  
+    String
+  
+  </p>
+
+
+  
+    
+    
+
+  
+    
+    
+
+  
+    
+    
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+    
+    
+
+  
+    
+    
+
+
+
+
+  
+    
+    
+
+  
+    
+    
+  
+    
+    
+  <h3 class="item__sub-heading">Author</h3>
+
+  <ul class="list-unstyled">
+    
+      <li><p>Pedr Browne</p>
+</li>
+    
+  </ul>
+
+
+  
+
+
+
+</section>
+              
                 <section class="main__item  item" id="function-box-is-valid-property">
 
 <h3 class="item__heading">
@@ -1317,7 +1522,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-is-valid-property($property) { ... }"><code>@function box-is-valid-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L172-L174" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L208-L210" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1490,7 +1695,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-is-single-property($property) { ... }"><code>@function box-is-single-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L185-L187" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L221-L223" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1668,7 +1873,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-orientation-of-property($property) { ... }"><code>@function box-orientation-of-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L198-L205" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L234-L241" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1859,7 +2064,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-throw-error($error, $message) { ... }"><code>@function box-throw-error($error, $message) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L235-L245" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L271-L281" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2059,7 +2264,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-parse-value-filter($value, $The) { ... }"><code>@function box-parse-value-filter($value, $The) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L260-L262" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L296-L298" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2258,7 +2463,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-valid-value($value) { ... }"><code>@function box-is-valid-value($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L288-L292" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L309-L313" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2272,7 +2477,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     
   <h3 class="item__sub-heading">Description</h3>
 
-  <div class="item__description"><p>Was the value a valid one; either united, supported unitless or calc</p>
+  <div class="item__description"><p>Is this valid already valid or does it need to be parsed?</p>
 </div>
 
 
@@ -2319,7 +2524,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     
   <h3 class="item__sub-heading">Returns</h3>
 
-  <p class="sassdoc__item-description"><p>Was the value valid?</p>
+  <p class="sassdoc__item-description"><p>Does the value need to be pa</p>
 
   
     Bool
@@ -2431,7 +2636,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-number-with-unit($value) { ... }"><code>@function box-is-number-with-unit($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L304-L306" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L325-L327" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2604,7 +2809,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-valid-unitless($value) { ... }"><code>@function box-is-valid-unitless($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L317-L319" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L338-L340" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2777,7 +2982,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-calc($value) { ... }"><code>@function box-is-calc($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L330-L332" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L351-L353" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2950,7 +3155,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function is-even($value) { ... }"><code>@function is-even($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L343-L345" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L364-L366" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4242,13 +4447,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin margin($value) { 
-  $value: box-process-multiple-values($value);
-  margin: #{$value};
+  margin: box-process-multiple-values($value);
  }"
     data-collapsed="@mixin margin($value) { ... }"><code>@mixin margin($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L67-L70" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L67-L69" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4405,13 +4609,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin margin-top($value) { 
-  $value: box-process-single-value($value, vertical);
-  margin-top: #{$value};
+  margin-top: box-process-single-value($value, vertical);
  }"
     data-collapsed="@mixin margin-top($value) { ... }"><code>@mixin margin-top($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L81-L84" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L80-L82" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4568,13 +4771,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin margin-right($value) { 
-  $value: box-process-single-value($value, horizontal);
-  margin-right: #{$value};
+  margin-right: box-process-single-value($value, horizontal);
  }"
     data-collapsed="@mixin margin-right($value) { ... }"><code>@mixin margin-right($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L95-L98" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L93-L95" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4731,13 +4933,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin margin-bottom($value) { 
-  $value: box-process-single-value($value, vertical);
-  margin-bottom: #{$value};
+  margin-bottom: box-process-single-value($value, vertical);
  }"
     data-collapsed="@mixin margin-bottom($value) { ... }"><code>@mixin margin-bottom($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L109-L112" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L106-L108" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4894,13 +5095,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin margin-left($value) { 
-  $value: box-process-single-value($value, horizontal);
-  margin-left: #{$value};
+  margin-left: box-process-single-value($value, horizontal);
  }"
     data-collapsed="@mixin margin-left($value) { ... }"><code>@mixin margin-left($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L123-L126" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L119-L121" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5057,13 +5257,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin padding($value) { 
-  $value: box-process-multiple-values($value);
-  padding: #{$value};
+  padding: box-process-multiple-values($value);
  }"
     data-collapsed="@mixin padding($value) { ... }"><code>@mixin padding($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L137-L140" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L132-L134" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5220,13 +5419,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin padding-right($value) { 
-  $value: box-process-single-value($value, horizontal);
-  padding-right: #{$value};
+  padding-right: box-process-single-value($value, horizontal);
  }"
     data-collapsed="@mixin padding-right($value) { ... }"><code>@mixin padding-right($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L166-L169" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L159-L161" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5383,13 +5581,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin padding-bottom($value) { 
-  $value: box-process-single-value($value, vertical);
-  padding-bottom: #{$value};
+  padding-bottom: box-process-single-value($value, vertical);
  }"
     data-collapsed="@mixin padding-bottom($value) { ... }"><code>@mixin padding-bottom($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L180-L183" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L172-L174" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5546,13 +5743,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin padding-left($value) { 
-  $value: box-process-single-value($value, horizontal);
-  padding-left: #{$value};
+  padding-left: box-process-single-value($value, horizontal);
  }"
     data-collapsed="@mixin padding-left($value) { ... }"><code>@mixin padding-left($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L194-L197" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L185-L187" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5709,13 +5905,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin border($value) { 
-  $value: box-process-multiple-values($value);
-  border: #{$value};
+  border: box-process-multiple-values($value);
  }"
     data-collapsed="@mixin border($value) { ... }"><code>@mixin border($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L208-L211" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L198-L200" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5872,13 +6067,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin border-top($value) { 
-  $value: box-process-single-value($value, vertical);
-  border-top: #{$value};
+  border-top: box-process-single-value($value, vertical);
  }"
     data-collapsed="@mixin border-top($value) { ... }"><code>@mixin border-top($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L222-L225" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L211-L213" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6035,13 +6229,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin border-right($value) { 
-  $value: box-process-single-value($value, horizontal);
-  border-right: #{$value};
+  border-right: box-process-single-value($value, horizontal);
  }"
     data-collapsed="@mixin border-right($value) { ... }"><code>@mixin border-right($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L236-L239" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L224-L226" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6198,13 +6391,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin border-bottom($value) { 
-  $value: box-process-single-value($value, vertical);
-  border-bottom: #{$value};
+  border-bottom: box-process-single-value($value, vertical);
  }"
     data-collapsed="@mixin border-bottom($value) { ... }"><code>@mixin border-bottom($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L250-L253" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L237-L239" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6361,13 +6553,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin border-left($value) { 
-  $value: box-process-single-value($value, horizontal);
-  border-left: #{$value};
+  border-left: box-process-single-value($value, horizontal);
  }"
     data-collapsed="@mixin border-left($value) { ... }"><code>@mixin border-left($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L264-L267" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L250-L252" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6511,7 +6702,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
           
 
           <!-- Version -->
-          <span class="project-info__version"> - v0.0.14</span>
+          <span class="project-info__version"> - v0.0.15</span>
 
           <!-- License -->
           
