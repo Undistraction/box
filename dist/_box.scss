@@ -1,4 +1,4 @@
-/*! Box v0.0.14 – 12.10.2014 */
+/*! Box v0.0.15 – 13.10.2014 */
 
 /**
  * @author Pedr Browne
@@ -132,6 +132,8 @@ $box-invalid-value-error: "Invalid Value Error";
     }
     $processed-values: append($processed-values, $value);
   }
+  $processed-values: box-optimise-four-values($processed-values);
+
   @return $processed-values;
 }
 
@@ -160,6 +162,40 @@ $box-invalid-value-error: "Invalid Value Error";
     }
   }
   @return $values;
+}
+
+/**
+ * Optimise four values down to as few values as possible.
+ *
+ * @param {String} $values
+ *  The values to process
+ *
+ * @return {String}
+ *  The optimised values
+ */
+@function box-optimise-four-values($values) {
+  $top: nth($values, 1);
+  $right: nth($values, 2);
+  $bottom: nth($values, 3);
+  $left: nth($values, 4);
+
+  $result: null;
+
+  // All same
+  @if $top == $right and $right == $bottom and $bottom == $left {
+     $result: ($top);
+  // top + bottom same
+  } @else if $top == $bottom {
+      @if $right == $left  {
+        // left + right same
+        $result: ($top $right);
+      }
+  }@else if $right == $left {
+    $result: ($top $right $bottom);
+  } @else {
+    $result: $values;
+  }
+  @return $result;
 }
 
 /**
@@ -271,21 +307,6 @@ $box-error-thrown: false;
  *
  * @returns {Bool}
  *  Does the value need to be pa
- */
-@function box-is-valid-value($value) {
-  @return box-is-number-with-unit($value)
-       or box-is-valid-unitless($value)
-       or box-is-calc($value);
-}
-
-/**
- * Was the value a valid one; either united, supported unitless or calc
- *
- * @param {String} $value
- *  The value to be checked
- *
- * @returns {Bool}
- *  Was the value valid?
  */
 @function box-is-valid-value($value) {
   @return box-is-number-with-unit($value)
@@ -413,8 +434,7 @@ $box-error-thrown: false;
  *  The `margin` property and value.
  */
 @mixin margin($value) {
-  $value: box-process-multiple-values($value);
-  margin: #{$value};
+  margin: box-process-multiple-values($value);
 }
 
 /**
@@ -427,8 +447,7 @@ $box-error-thrown: false;
  *  The `margin-top` property and value.
  */
 @mixin margin-top($value) {
-  $value: box-process-single-value($value, vertical);
-  margin-top: #{$value};
+  margin-top: box-process-single-value($value, vertical);
 }
 
 /**
@@ -441,8 +460,7 @@ $box-error-thrown: false;
  *  The `margin-right` property and value.
  */
 @mixin margin-right($value) {
-  $value: box-process-single-value($value, horizontal);
-  margin-right: #{$value};
+  margin-right: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -455,8 +473,7 @@ $box-error-thrown: false;
  *  The `margin-bottom` property and value.
  */
 @mixin margin-bottom($value) {
-  $value: box-process-single-value($value, vertical);
-  margin-bottom: #{$value};
+  margin-bottom: box-process-single-value($value, vertical);
 }
 
 /**
@@ -469,8 +486,7 @@ $box-error-thrown: false;
  *  The `margin-left` property and value.
  */
 @mixin margin-left($value) {
-  $value: box-process-single-value($value, horizontal);
-  margin-left: #{$value};
+  margin-left: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -483,8 +499,7 @@ $box-error-thrown: false;
  *  The `padding` property and value.
  */
 @mixin padding($value) {
-  $value: box-process-multiple-values($value);
-  padding: #{$value};
+  padding: box-process-multiple-values($value);
 }
 
 /*
@@ -498,8 +513,7 @@ $box-error-thrown: false;
  */
 
 @mixin padding-top($value) {
-  $value: box-process-single-value($value, vertical);
-  padding-top: #{$value};
+  padding-top: box-process-single-value($value, vertical);
 }
 
 /**
@@ -512,8 +526,7 @@ $box-error-thrown: false;
  *  The `padding-right` property and value.
  */
 @mixin padding-right($value) {
-  $value: box-process-single-value($value, horizontal);
-  padding-right: #{$value};
+  padding-right: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -526,8 +539,7 @@ $box-error-thrown: false;
  *  The `padding-bottom` property and value.
  */
 @mixin padding-bottom($value) {
-  $value: box-process-single-value($value, vertical);
-  padding-bottom: #{$value};
+  padding-bottom: box-process-single-value($value, vertical);
 }
 
 /**
@@ -540,8 +552,7 @@ $box-error-thrown: false;
  *  The `padding-left` property and value.
  */
 @mixin padding-left($value) {
-  $value: box-process-single-value($value, horizontal);
-  padding-left: #{$value};
+  padding-left: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -554,8 +565,7 @@ $box-error-thrown: false;
  *  The `border` property and value.
  */
 @mixin border($value) {
-  $value: box-process-multiple-values($value);
-  border: #{$value};
+  border: box-process-multiple-values($value);
 }
 
 /**
@@ -568,8 +578,7 @@ $box-error-thrown: false;
  *  The `border-top` property and value.
  */
 @mixin border-top($value) {
-  $value: box-process-single-value($value, vertical);
-  border-top: #{$value};
+  border-top: box-process-single-value($value, vertical);
 }
 
 /**
@@ -582,8 +591,7 @@ $box-error-thrown: false;
  *  The `border-right` property and value.
  */
 @mixin border-right($value) {
-  $value: box-process-single-value($value, horizontal);
-  border-right: #{$value};
+  border-right: box-process-single-value($value, horizontal);
 }
 
 /**
@@ -596,8 +604,7 @@ $box-error-thrown: false;
  *  The `border-bottom` property and value.
  */
 @mixin border-bottom($value) {
-  $value: box-process-single-value($value, vertical);
-  border-bottom: #{$value};
+  border-bottom: box-process-single-value($value, vertical);
 }
 
 /**
@@ -610,6 +617,5 @@ $box-error-thrown: false;
  *  The `border-left` property and value.
  */
 @mixin border-left($value) {
-  $value: box-process-single-value($value, horizontal);
-  border-left: #{$value};
+  border-left: box-process-single-value($value, horizontal);
 }
