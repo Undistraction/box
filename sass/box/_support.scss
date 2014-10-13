@@ -313,21 +313,6 @@ $box-error-thrown: false;
 }
 
 /**
- * Was the value a valid one; either united, supported unitless or calc
- *
- * @param {String} $value
- *  The value to be checked
- *
- * @returns {Bool}
- *  Was the value valid?
- */
-@function box-is-valid-value($value) {
-  @return box-is-number-with-unit($value)
-       or box-is-valid-unitless($value)
-       or box-is-calc($value);
-}
-
-/**
  * Determine if the value is a valid number with a unit
  *
  * @param {String} $value
