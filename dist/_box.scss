@@ -1,29 +1,21 @@
-/*! Box v0.0.15 – 13.10.2014 */
+/*! Box v0.0.16 – 13.10.2014 */
 
-/**
- * @author Pedr Browne
- * @group Support
- * @access private
- **/
+////
+/// @author Pedr Browne
+/// @group Support
+/// @access private
+////
 
-/**
- * Possible orientations for each box property
- */
+/// Possible orientations for each box property
 $box-orientations: horizontal vertical;
 
-/**
- * Values without a unit that are accepted without being parsed
- */
+/// Values without a unit that are accepted without being parsed
 $box-valid-unitless-values: auto initial inherit 0;
 
-/**
- * Valid properties that accept multiple values
- */
+/// Valid properties that accept multiple values
 $box-valid-multiple-properties: margin padding border;
 
-/**
- * Valid properties that accept a single value
- */
+/// Valid properties that accept a single value
 $box-valid-single-properties: margin-top
                               margin-right
                               margin-bottom
@@ -37,42 +29,33 @@ $box-valid-single-properties: margin-top
                               border-bottom
                               border-left;
 
-/**
- * All valid properties
- */
+/// All valid properties
 $box-valid-properties: join($box-valid-multiple-properties, $box-valid-single-properties);
 
-/**
- * Error thrown when too many arguments are supplied to a property
- */
+/// Error thrown when too many arguments are supplied to a property
 $box-argument-count-error: "Argument Count Error";
 
-/**
- * Error thrown when a property is unsupported
- */
+/// Error thrown when a property is unsupported
 $box-invalid-property-error: "Invalid Property Error";
 
-/**
- * Error thrown when a value is invalid
- */
+/// Error thrown when a value is invalid
 $box-invalid-value-error: "Invalid Value Error";
 
-/**
- * Process a property and value, discovering if the property is supported and whether it accepts
- * singular or multiple values.
- *
- * @param {String} $property
- *  The box property
- *
- * @param {String} $value
- *  The box property value
- *
- * @return {String}
- *  The processed value
- *
- * @throws $box-argument-count-error
- * @throws $box-invalid-property-error
- */
+/// Process a property and value, discovering if the property is supported and whether it accepts
+/// singular or multiple values.
+///
+/// @param {String} $property
+///  The box property
+///
+/// @param {String} $value
+///  The box property value
+///
+/// @return {String}
+///  The processed value
+///
+/// @throws $box-argument-count-error
+/// @throws $box-invalid-property-error
+///
 @function box-process-arbitrary-value($property, $value) {
   @if box-is-valid-property($property) {
     @if box-is-single-property($property) {
@@ -90,15 +73,14 @@ $box-invalid-value-error: "Invalid Value Error";
   }
 }
 
-/**
- * Check if the $value is already valid and process it if not
- *
- * @param {String} $value
- *   The value to process
- *
-  * @param {String} $value
- *   The orientation of that value (horizontal | vertical)
- */
+/// Check if the $value is already valid and process it if not
+///
+/// @param {String} $value
+///   The value to process
+///
+ /// @param {String} $value
+///   The orientation of that value (horizontal | vertical)
+///
 @function box-process-single-value($value, $orientation) {
   @if not box-is-valid-value($value) {
     // Process if it isn't already a valid value
@@ -107,15 +89,14 @@ $box-invalid-value-error: "Invalid Value Error";
   @return $value;
 }
 
-/**
- * Check if multiple $values are already valid and process any that are not.
- *
- * @param {String} $values
- *  The values to process
- *
- * @return {Map}
- *  The processed values
- */
+/// Check if multiple $values are already valid and process any that are not.
+///
+/// @param {String} $values
+///  The values to process
+///
+/// @return {Map}
+///  The processed values
+///
 @function box-process-multiple-values($values) {
   $values: box-process-to-four-values($values);
   $processed-values: ();
@@ -137,15 +118,14 @@ $box-invalid-value-error: "Invalid Value Error";
   @return $processed-values;
 }
 
-/**
- * Expand values to 4 separate values to streamline processing.
- *
- * @param {String} $values
- *  The values to process
- *
- * @return {String}
- *  The expanded values
- */
+/// Expand values to 4 separate values to streamline processing.
+///
+/// @param {String} $values
+///  The values to process
+///
+/// @return {String}
+///  The expanded values
+///
 @function box-process-to-four-values($values) {
   $length: length($values);
   // Convert all values to 4 values
@@ -164,15 +144,14 @@ $box-invalid-value-error: "Invalid Value Error";
   @return $values;
 }
 
-/**
- * Optimise four values down to as few values as possible.
- *
- * @param {String} $values
- *  The values to process
- *
- * @return {String}
- *  The optimised values
- */
+/// Optimise four values down to as few values as possible.
+///
+/// @param {String} $values
+///  The values to process
+///
+/// @return {String}
+///  The optimised values
+///
 @function box-optimise-four-values($values) {
   $top: nth($values, 1);
   $right: nth($values, 2);
@@ -198,41 +177,38 @@ $box-invalid-value-error: "Invalid Value Error";
   @return $result;
 }
 
-/**
- * Is the supplied property a property that is supported?
- *
- * @param {String} $property
- *  The property
- *
- * @return {Bool}
- *  Is the property valid?
- */
+/// Is the supplied property a property that is supported?
+///
+/// @param {String} $property
+///  The property
+///
+/// @return {Bool}
+///  Is the property valid?
+///
 @function box-is-valid-property($property) {
   @return not not index($box-valid-properties, $property);
 }
 
-/**
- * Does the supplied property take a single value?
- *
- * @param {String} $property
- *  The property
- *
- * @return {Bool}
- *  Does the property accept a single value?
- */
+/// Does the supplied property take a single value?
+///
+/// @param {String} $property
+///  The property
+///
+/// @return {Bool}
+///  Does the property accept a single value?
+///
 @function box-is-single-property($value) {
   @return not not index($box-valid-single-properties, $value);
 }
 
-/**
- * Is the property related to the horizontal or vertical axis?
- *
- * @param {String} $property
- *  The property
- *
- * @return {String}
- *  The orientation of the property (horizontal | vertical)
- */
+/// Is the property related to the horizontal or vertical axis?
+///
+/// @param {String} $property
+///  The property
+///
+/// @return {String}
+///  The orientation of the property (horizontal | vertical)
+///
 @function box-orientation-of-property($property) {
   $direction: str-slice($property, str-index($property, '-') + 1);
   @if not not index(left right, $direction) {
@@ -246,9 +222,8 @@ $box-invalid-value-error: "Invalid Value Error";
 // TODO: Extract to Glue
 // -------------------------------------------------------------------------------------------------
 
-/**
- * Error thrown when an item is followed by an invalid value
- */
+/// Error thrown when an item is followed by an invalid value
+///
 
 $box-invalid-value-error: "Invalid Value Error";
 
@@ -257,19 +232,18 @@ $box-last-error: null;
 $box-under-test: false;
 $box-error-thrown: false;
 
-/**
- * By default, this function will throw a Sass error, but allows errors to be stopped during testing,
- * with the error saved to `$box-last-error` instead so tests can check it was thrown.
- *
- * @param {String} $error
- *  The name of the error
- *
- * @param {String} $message
- *  The error message
- *
- * @returns {Map}
- *  A map of offsets to be rendered as CSS properties
- */
+/// By default, this function will throw a Sass error, but allows errors to be stopped during testing,
+/// with the error saved to `$box-last-error` instead so tests can check it was thrown.
+///
+/// @param {String} $error
+///  The name of the error
+///
+/// @param {String} $message
+///  The error message
+///
+/// @returns {Map}
+///  A map of offsets to be rendered as CSS properties
+///
 @function box-throw-error($error, $message) {
   @if $box-under-test {
     @if not $box-error-thrown {
@@ -282,340 +256,318 @@ $box-error-thrown: false;
   @return null;
 }
 
-/**
- * Overridable hook to handle unrecognised values. By default it will throw an error.
- *
- * @param {String} $value
- *  An unrecognised value
- *
- * @param {orientation}
- *  The orientation of the value's keyword (horizontal | vertical)
- *
- * @returns {null}
- *
- * @throws $box-unsupported-value-error
- */
+/// Overridable hook to handle unrecognised values. By default it will throw an error.
+///
+/// @param {String} $value
+///  An unrecognised value
+///
+/// @param {orientation}
+///  The orientation of the value's keyword (horizontal | vertical)
+///
+/// @returns {null}
+///
+/// @throws $box-unsupported-value-error
+///
 @function box-parse-value-filter($value, $orientation) {
   @return box-throw-error($box-invalid-value-error, "Invalid value #{$value}");
 }
 
-/**
- * Is this valid already valid or does it need to be parsed?
- *
- * @param {String} $value
- *  The value to be checked
- *
- * @returns {Bool}
- *  Does the value need to be pa
- */
+/// Is this valid already valid or does it need to be parsed?
+///
+/// @param {String} $value
+///  The value to be checked
+///
+/// @returns {Bool}
+///  Does the value need to be pa
+///
 @function box-is-valid-value($value) {
   @return box-is-number-with-unit($value)
        or box-is-valid-unitless($value)
        or box-is-calc($value);
 }
 
-/**
- * Determine if the value is a valid number with a unit
- *
- * @param {String} $value
- *  Value to be checked
- *
- * @returns {Bool}
- *  Was the value number with a unit?
- *
- */
+/// Determine if the value is a valid number with a unit
+///
+/// @param {String} $value
+///  Value to be checked
+///
+/// @returns {Bool}
+///  Was the value number with a unit?
+///
+///
 @function box-is-number-with-unit($value) {
   @return (type-of($value) == number and not unitless($value));
 }
 
-/**
- * Determine if the value is a valid unitless value.
- *
- * @param {String} $value
- *  Value to be checked
- *
- * @returns {Bool}
- *  Was the value unitless?
- */
+/// Determine if the value is a valid unitless value.
+///
+/// @param {String} $value
+///  Value to be checked
+///
+/// @returns {Bool}
+///  Was the value unitless?
+///
 @function box-is-valid-unitless($value) {
   @return not not index($box-valid-unitless-values, $value);
 }
 
-/**
- * Determine if the value is a `calc()` expression.
- *
- * @param {String} $value
- *  Value to be checked
- *
- * @returns {Bool}
- *  Was the value a `calc` expression?
- */
+/// Determine if the value is a `calc()` expression.
+///
+/// @param {String} $value
+///  Value to be checked
+///
+/// @returns {Bool}
+///  Was the value a `calc` expression?
+///
 @function box-is-calc($value) {
  @return str-slice($value + "", 1, 4) == calc;
 }
 
-/**
- * Check a number to see if it is even.
- *
- * @param {Number} $value
- *  The value to check.
- *
- * @returns {Bool}
- *  Is the number even?
- */
+/// Check a number to see if it is even.
+///
+/// @param {Number} $value
+///  The value to check.
+///
+/// @returns {Bool}
+///  Is the number even?
+///
 @function is-even($number) {
   @return $number % 2 == 0;
 }
 
-/**
- * @author Pedr Browne
- * @group API
- * @access public
- **/
+////
+/// @author Pedr Browne
+/// @group API
+/// @access public
+////
 
-/**
- * Render the supplied box-properties.
- *
- * @param {Map} $map
- *  Map of box properties. The following properties / keys are supported:
- *
- *  - margin
- *  - margin-top
- *  - margin-right
- *  - margin-bottom
- *  - margin-left
- *  - border
- *  - border-top
- *  - border-right
- *  - border-bottom
- *  - border-left
- *  - padding
- *  - padding-top
- *  - padding-right
- *  - padding-bottom
- *  - padding-left
- *
- * @output
- *  The supplied properties.
- *
- * @example scss - Usage
- *  .element {
- *    @include box(
- *      (
- *        margin: 5px,
- *        padding: 20px,
- *        padding-left: 2px,
- *        border: 2px 3px 2px
- *      )
- *    );
- *  }
- *
- * @example css - CSS Output
- *  .element {
- *    margin: 5px;
- *    padding: 20px;
- *    padding-left: 2px;
- *    border: 2px 3px 2px;
- *  }
- */
+/// Render the supplied box-properties.
+///
+/// @param {Map} $map
+///  Map of box properties. The following properties / keys are supported:
+///
+///  - margin
+///  - margin-top
+///  - margin-right
+///  - margin-bottom
+///  - margin-left
+///  - border
+///  - border-top
+///  - border-right
+///  - border-bottom
+///  - border-left
+///  - padding
+///  - padding-top
+///  - padding-right
+///  - padding-bottom
+///  - padding-left
+///
+/// @output
+///  The supplied properties.
+///
+/// @example scss - Usage
+///  .element {
+///    @include box(
+///      (
+///        margin: 5px,
+///        padding: 20px,
+///        padding-left: 2px,
+///        border: 2px 3px 2px
+///      )
+///    );
+///  }
+///
+/// @example css - CSS Output
+///  .element {
+///    margin: 5px;
+///    padding: 20px;
+///    padding-left: 2px;
+///    border: 2px 3px 2px;
+///  }
+///
 @mixin box($map) {
   @each $key, $value in $map {
     #{$key}: #{box-process-arbitrary-value($key, $value)};
   }
 }
 
-/**
- * Render the supplied margin.
- *
- * @param {String} $value
- *  The `margin` value.
- *
- * @output
- *  The `margin` property and value.
- */
+/// Render the supplied margin.
+///
+/// @param {String} $value
+///  The `margin` value.
+///
+/// @output
+///  The `margin` property and value.
+///
 @mixin margin($value) {
   margin: box-process-multiple-values($value);
 }
 
-/**
- * Render the supplied margin-top.
- *
- * @param {String} $value
- *  The `margin-top` value.
- *
- * @output
- *  The `margin-top` property and value.
- */
+/// Render the supplied margin-top.
+///
+/// @param {String} $value
+///  The `margin-top` value.
+///
+/// @output
+///  The `margin-top` property and value.
+///
 @mixin margin-top($value) {
   margin-top: box-process-single-value($value, vertical);
 }
 
-/**
- * Render the supplied margin-right.
- *
- * @param {String} $value
- *  The `margin-right` value.
- *
- * @output
- *  The `margin-right` property and value.
- */
+/// Render the supplied margin-right.
+///
+/// @param {String} $value
+///  The `margin-right` value.
+///
+/// @output
+///  The `margin-right` property and value.
+///
 @mixin margin-right($value) {
   margin-right: box-process-single-value($value, horizontal);
 }
 
-/**
- * Render the supplied margin-bottom.
- *
- * @param {String} $value
- *  The `margin-bottom` value.
- *
- * @output
- *  The `margin-bottom` property and value.
- */
+/// Render the supplied margin-bottom.
+///
+/// @param {String} $value
+///  The `margin-bottom` value.
+///
+/// @output
+///  The `margin-bottom` property and value.
+///
 @mixin margin-bottom($value) {
   margin-bottom: box-process-single-value($value, vertical);
 }
 
-/**
- * Render the supplied margin-left.
- *
- * @param {String} $value
- *  The `margin-left` value.
- *
- * @output
- *  The `margin-left` property and value.
- */
+/// Render the supplied margin-left.
+///
+/// @param {String} $value
+///  The `margin-left` value.
+///
+/// @output
+///  The `margin-left` property and value.
+///
 @mixin margin-left($value) {
   margin-left: box-process-single-value($value, horizontal);
 }
 
-/**
- * Render the supplied padding.
- *
- * @param {String} $value
- *  The `padding` value.
- *
- * @output
- *  The `padding` property and value.
- */
+/// Render the supplied padding.
+///
+/// @param {String} $value
+///  The `padding` value.
+///
+/// @output
+///  The `padding` property and value.
+///
 @mixin padding($value) {
   padding: box-process-multiple-values($value);
 }
 
-/*
- * Render the supplied padding-top.
- *
- * @param {String} $value
- *  The `padding-top` value.
- *
- * @output
- *  The `padding-top` property and value.
- */
+/// Render the supplied padding-top.
+///
+/// @param {String} $value
+///  The `padding-top` value.
+///
+/// @output
+///  The `padding-top` property and value.
+///
 
 @mixin padding-top($value) {
   padding-top: box-process-single-value($value, vertical);
 }
 
-/**
- * Render the supplied padding-right.
- *
- * @param {String} $value
- *  The `padding-right` value.
- *
- * @output
- *  The `padding-right` property and value.
- */
+/// Render the supplied padding-right.
+///
+/// @param {String} $value
+///  The `padding-right` value.
+///
+/// @output
+///  The `padding-right` property and value.
+///
 @mixin padding-right($value) {
   padding-right: box-process-single-value($value, horizontal);
 }
 
-/**
- * Render the supplied padding-bottom.
- *
- * @param {String} $value
- *  The `padding-bottom` value.
- *
- * @output
- *  The `padding-bottom` property and value.
- */
+/// Render the supplied padding-bottom.
+///
+/// @param {String} $value
+///  The `padding-bottom` value.
+///
+/// @output
+///  The `padding-bottom` property and value.
+///
 @mixin padding-bottom($value) {
   padding-bottom: box-process-single-value($value, vertical);
 }
 
-/**
- * Render the supplied padding-left.
- *
- * @param {String} $value
- *  The `padding-left` value.
- *
- * @output
- *  The `padding-left` property and value.
- */
+/// Render the supplied padding-left.
+///
+/// @param {String} $value
+///  The `padding-left` value.
+///
+/// @output
+///  The `padding-left` property and value.
+///
 @mixin padding-left($value) {
   padding-left: box-process-single-value($value, horizontal);
 }
 
-/**
- * Render the supplied border.
- *
- * @param {String} $value
- *  The `border` value.
- *
- * @output
- *  The `border` property and value.
- */
+/// Render the supplied border.
+///
+/// @param {String} $value
+///  The `border` value.
+///
+/// @output
+///  The `border` property and value.
+///
 @mixin border($value) {
   border: box-process-multiple-values($value);
 }
 
-/**
- * Render the supplied border-top.
- *
- * @param {String} $value
- *  The `border-top` value.
- *
- * @output
- *  The `border-top` property and value.
- */
+/// Render the supplied border-top.
+///
+/// @param {String} $value
+///  The `border-top` value.
+///
+/// @output
+///  The `border-top` property and value.
+///
 @mixin border-top($value) {
   border-top: box-process-single-value($value, vertical);
 }
 
-/**
- * Render the supplied border-right.
- *
- * @param {String} $value
- *  The `border-right` value.
- *
- * @output
- *  The `border-right` property and value.
- */
+/// Render the supplied border-right.
+///
+/// @param {String} $value
+///  The `border-right` value.
+///
+/// @output
+///  The `border-right` property and value.
+///
 @mixin border-right($value) {
   border-right: box-process-single-value($value, horizontal);
 }
 
-/**
- * Render the supplied border-bottom.
- *
- * @param {String} $value
- *  The `border-bottom` value.
- *
- * @output
- *  The `border-bottom` property and value.
- */
+/// Render the supplied border-bottom.
+///
+/// @param {String} $value
+///  The `border-bottom` value.
+///
+/// @output
+///  The `border-bottom` property and value.
+///
 @mixin border-bottom($value) {
   border-bottom: box-process-single-value($value, vertical);
 }
 
-/**
- * Render the supplied border-left.
- *
- * @param {String} $value
- *  The `border-left` value.
- *
- * @output
- *  The `border-left` property and value.
- */
+/// Render the supplied border-left.
+///
+/// @param {String} $value
+///  The `border-left` value.
+///
+/// @output
+///  The `border-left` property and value.
+///
 @mixin border-left($value) {
   border-left: box-process-single-value($value, horizontal);
 }
