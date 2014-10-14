@@ -14,19 +14,20 @@ module.exports = function(grunt) {
     },
 
     pkg: grunt.file.readJSON('package.json'),
+    projectName: '<%= pkg.name.toLowerCase() %>',
 
     // Concat
     concat: {
       options: {
         separator: '\n\n',
-        banner: '/*! <%= pkg.name %> v<%= pkg.version %> – <%= grunt.template.today("dd.mm.yyyy") %> */\n\n',
+        banner: '/*! <%= projectName %> v<%= pkg.version %> – <%= grunt.template.today("dd.mm.yyyy") %> */\n\n',
       },
       dist: {
         src: [
-          '<%= dir.src %>/box/_support.scss',
-          '<%= dir.src %>/box/_api.scss'
+          '<%= dir.src %>/<%= projectName %>/_support.scss',
+          '<%= dir.src %>/<%= projectName %>/_api.scss'
         ],
-        dest: '<%= dir.dist %>/_<%= pkg.name.toLowerCase() %>.scss',
+        dest: '<%= dir.dist %>/_<%= projectName %>.scss',
       },
     },
 
