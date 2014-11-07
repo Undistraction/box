@@ -216,6 +216,22 @@ $box-invalid-value-error: "Invalid Value Error";
   }
 }
 
+/// Which sides comprise this orientation?
+///
+/// @param {String} $orientation
+///  The orientation vertical | horizontal
+///
+/// @return {List}
+///  The sides.
+///
+@function box-side-for-orientation($orientation) {
+  @if $orientation == horizontal {
+    @return top bottom
+  } @else {
+    @return left right
+  }
+}
+
 // Common
 // TODO: Extract to Glue
 // -------------------------------------------------------------------------------------------------

@@ -54,6 +54,78 @@
   }
 }
 
+/// Render `left` and `right` `margins` with the supplied value.
+///
+/// @param {String} $value
+///  The value for the margins.
+///
+/// @output
+///  The `margin` properties and values.
+///
+@mixin h-margins($value) {
+  @include opposing-properties(margin, horizontal, $value);
+}
+
+/// Render `top` and `bottom` `margins` with the supplied value.
+///
+/// @param {String} $value
+///  The value for the margins.
+///
+/// @output
+///  The `margin` properties and values.
+///
+@mixin v-margins($value) {
+  @include opposing-properties(margin, vertical, $value);
+}
+
+/// Render `left` and `right` `borders` with the supplied value.
+///
+/// @param {String} $value
+///  The value for the borders.
+///
+/// @output
+///  The `border` properties and values.
+///
+@mixin h-borders($value) {
+  @include opposing-properties(border, horizontal, $value);
+}
+
+/// Render `top` and `bottom` `borders` with the supplied value.
+///
+/// @param {String} $value
+///  The value for the borders.
+///
+/// @output
+///  The `border` properties and values.
+///
+@mixin v-borders($value) {
+  @include opposing-properties(border, vertical, $value);
+}
+
+/// Render `top` and `bottom` `padding` with the supplied value.
+///
+/// @param {String} $value
+///  The value for the padding.
+///
+/// @output
+///  The `padding` properties and values.
+///
+@mixin h-padding($value) {
+  @include opposing-properties(padding, horizontal, $value);
+}
+
+/// Render `left` and `right` `padding` with the supplied value.
+///
+/// @param {String} $value
+///  The value for the padding.
+///
+/// @output
+///  The `padding` properties and values.
+///
+@mixin v-padding($value) {
+  @include opposing-properties(padding, vertical, $value);
+}
+
 /// Render the supplied margin.
 ///
 /// @param {String} $value
@@ -233,4 +305,28 @@
 ///
 @mixin border-left($value) {
   border-left: box-process-single-value($value, horizontal);
+}
+
+/// Render a pair of box properties for the supplied orientation.
+///
+/// @param {String} $property
+///  The name of the box-property ( margin | padding | border )
+///
+/// @param {String} $orientation
+///   The orientation of the property-pair ( horizontal | vertical )
+///
+/// @param {String} $value
+///   The value for the property-pair
+///
+/// @output
+///  The `margin` property and value.
+///
+@mixin opposing-properties($property, $orientation, $value) {
+  $sides: box-side-for-orientation($orientation);
+  @include box(
+    (
+      #{$property}-#{ nth($sides, 1)}: $value,
+      #{$property}-#{ nth($sides, 2)}: $value
+    )
+  );
 }

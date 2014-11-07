@@ -63,6 +63,17 @@ For `padding` you have the following mixins:
 @include padding-left(10px);
 ```
 
+There are also mixins setting pairs of values by orientation; either `top` and `bottom` values or `left` and `right` values for each box property:
+
+```
+@include h-margins(10px);
+@include v-margins(10px);
+@include h-borders(10px);
+@include v-borders(10px);
+@include h-padding(10px);
+@include v-padding(10px);
+```
+
 There is also a single box mixin that allows you to set all box properties at the same time by passing a map:
 
 ```
