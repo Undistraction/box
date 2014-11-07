@@ -63,7 +63,7 @@ For `padding` you have the following mixins:
 @include padding-left(10px);
 ```
 
-There are also mixins setting pairs of values by orientation; either `top` and `bottom` values or `left` and `right` values for each box property:
+There are also mixins setting pairs of values by orientation; either `top` and `bottom` values or `left` and `right` values for each box property. These mixins accept either one or two values.
 
 ```
 @include h-margins(10px);
@@ -114,7 +114,7 @@ $custom-units-map: (
   } @else {
     // If it isn't recognised throw an error
     // Unfortunately Sass doesn't allow us to call super.
-    @return box-throw-error($box-invalid-value-error, "Invalid value #{$value}");
+    @return box-throw-error($box-invalid-value-error, "Invalid value #{$key}");
   }
 }
 

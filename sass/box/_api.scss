@@ -54,76 +54,77 @@
   }
 }
 
+
 /// Render `left` and `right` `margins` with the supplied value.
 ///
 /// @param {String} $value
-///  The value for the margins.
+///  The value(s) for the margins.
 ///
 /// @output
 ///  The `margin` properties and values.
 ///
-@mixin h-margins($value) {
-  @include opposing-properties(margin, horizontal, $value);
+@mixin h-margins($values) {
+  @include opposing-properties(margin, horizontal, $values);
 }
 
 /// Render `top` and `bottom` `margins` with the supplied value.
 ///
-/// @param {String} $value
-///  The value for the margins.
+/// @param {String} $values
+///  The value(s) for the margins.
 ///
 /// @output
 ///  The `margin` properties and values.
 ///
-@mixin v-margins($value) {
-  @include opposing-properties(margin, vertical, $value);
+@mixin v-margins($values) {
+  @include opposing-properties(margin, vertical, $values);
 }
 
 /// Render `left` and `right` `borders` with the supplied value.
 ///
-/// @param {String} $value
-///  The value for the borders.
+/// @param {String} $values
+///  The value(s) for the borders.
 ///
 /// @output
 ///  The `border` properties and values.
 ///
-@mixin h-borders($value) {
-  @include opposing-properties(border, horizontal, $value);
+@mixin h-borders($values) {
+  @include opposing-properties(border, horizontal, $values);
 }
 
 /// Render `top` and `bottom` `borders` with the supplied value.
 ///
-/// @param {String} $value
-///  The value for the borders.
+/// @param {String} $values
+///  The value(s) for the borders.
 ///
 /// @output
 ///  The `border` properties and values.
 ///
-@mixin v-borders($value) {
-  @include opposing-properties(border, vertical, $value);
+@mixin v-borders($values) {
+  @include opposing-properties(border, vertical, $values);
 }
 
 /// Render `top` and `bottom` `padding` with the supplied value.
 ///
-/// @param {String} $value
-///  The value for the padding.
+/// @param {String} $values
+///  The value(s) for the padding.
 ///
 /// @output
 ///  The `padding` properties and values.
 ///
-@mixin h-padding($value) {
-  @include opposing-properties(padding, horizontal, $value);
+@mixin h-padding($values) {
+  @include opposing-properties(padding, horizontal, $values);
 }
 
 /// Render `left` and `right` `padding` with the supplied value.
 ///
-/// @param {String} $value
-///  The value for the padding.
+/// @param {String} $values
+///  The value(s) for the padding.
 ///
 /// @output
 ///  The `padding` properties and values.
 ///
-@mixin v-padding($value) {
-  @include opposing-properties(padding, vertical, $value);
+@mixin v-padding($values) {
+  @include opposing-properties(padding, vertical, $values);
 }
 
 /// Render the supplied margin.
@@ -315,18 +316,32 @@
 /// @param {String} $orientation
 ///   The orientation of the property-pair ( horizontal | vertical )
 ///
-/// @param {String} $value
-///   The value for the property-pair
+/// @param {String} $values
+///   The values for the property-pair
 ///
 /// @output
 ///  The `margin` property and value.
 ///
-@mixin opposing-properties($property, $orientation, $value) {
-  $sides: box-side-for-orientation($orientation);
+/// @throws
+///   $box-argument-count-error
+///
+@mixin opposing-properties($property, $orientation, $values) {
+  $count: length($values);
+  $first-value: nth($values, 1);
+  $second-value: null;
+  @if $count == 1 {
+    $second-value: $first-value;
+  }@else if $count == 2 {
+    $second-value: nth($values, 2);
+  }@else {
+    $error: box-throw-error($box-argument-count-error, "opposing-properties accepts either 1 or 2 $values, but you supplied #{$count}")
+  }
+
+  $sides: box-sides-for-orientation($orientation);
   @include box(
     (
-      #{$property}-#{ nth($sides, 1)}: $value,
-      #{$property}-#{ nth($sides, 2)}: $value
+      #{$property}-#{ nth($sides, 1)}: $first-value,
+      #{$property}-#{ nth($sides, 2)}: $second-value
     )
   );
 }

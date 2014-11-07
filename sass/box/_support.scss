@@ -224,11 +224,11 @@ $box-invalid-value-error: "Invalid Value Error";
 /// @return {List}
 ///  The sides.
 ///
-@function box-side-for-orientation($orientation) {
+@function box-sides-for-orientation($orientation) {
   @if $orientation == horizontal {
-    @return top bottom
+    @return left right;
   } @else {
-    @return left right
+    @return top bottom;
   }
 }
 
