@@ -8,7 +8,7 @@
   
   <meta charset="utf-8" />
 
-<title>SassDoc - v0.0.18</title>
+<title>SassDoc - v0.1.1</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width">
@@ -26,7 +26,7 @@
   <div class="sidebar__header">
   <h1 class="sidebar__title">
     
-      <a href="https://github.com/Undistraction/Box">SassDoc - v0.0.18</a>
+      <a href="https://github.com/Undistraction/Box">SassDoc - v0.1.1</a>
     
   </h1>
 </div>
@@ -126,8 +126,8 @@
             
           
             
-            <li class="sidebar__item  sassdoc__item" data-name="box-side-for-orientation" data-type="function">
-              <a href="#function-box-side-for-orientation">box-side-for-orientation
+            <li class="sidebar__item  sassdoc__item" data-name="box-sides-for-orientation" data-type="function">
+              <a href="#function-box-sides-for-orientation">box-sides-for-orientation
               <span class="sidebar__annotation  sidebar__annotation--private">private</span>
               
               </a>
@@ -2059,14 +2059,14 @@ singular or multiple values.</p>
 
 </section>
               
-                <section class="main__item  item" id="function-box-side-for-orientation">
+                <section class="main__item  item" id="function-box-sides-for-orientation">
 
 <h3 class="item__heading">
   
     <span class="item__access">[private]</span>
   
 
-  <a class="item__name" href="#function-box-side-for-orientation">box-side-for-orientation</a>
+  <a class="item__name" href="#function-box-sides-for-orientation">box-sides-for-orientation</a>
 
   
 
@@ -2097,14 +2097,14 @@ singular or multiple values.</p>
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@function box-side-for-orientation($orientation) { 
+    data-expanded="@function box-sides-for-orientation($orientation) { 
   @if $orientation == horizontal {
-    @return top bottom
+    @return left right;
   } @else {
-    @return left right
+    @return top bottom;
   }
  }"
-    data-collapsed="@function box-side-for-orientation($orientation) { ... }"><code>@function box-side-for-orientation($orientation) { ... }</code></pre>
+    data-collapsed="@function box-sides-for-orientation($orientation) { ... }"><code>@function box-sides-for-orientation($orientation) { ... }</code></pre>
 
   
     <a href="https://github.com/Undistraction/box/box/_support.scss#L227-L233" class="item__source-link" target="_blank">View source</a>
@@ -4681,12 +4681,12 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
     data-expanded="@mixin h-margins($value) { 
-  @include opposing-properties(margin, horizontal, $value);
+  @include opposing-properties(margin, horizontal, $values);
  }"
     data-collapsed="@mixin h-margins($value) { ... }"><code>@mixin h-margins($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L65-L67" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L66-L68" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4723,7 +4723,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
       
         <tr class="item__parameter">
           <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the margins.</p>
+          <td data-label="desc"><p>The value(s) for the margins.</p>
 </td>
           <td data-label="type">
           
@@ -4842,13 +4842,13 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@mixin v-margins($value) { 
-  @include opposing-properties(margin, vertical, $value);
+    data-expanded="@mixin v-margins($values) { 
+  @include opposing-properties(margin, vertical, $values);
  }"
-    data-collapsed="@mixin v-margins($value) { ... }"><code>@mixin v-margins($value) { ... }</code></pre>
+    data-collapsed="@mixin v-margins($values) { ... }"><code>@mixin v-margins($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L77-L79" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L78-L80" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -4884,8 +4884,8 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     <tbody>
       
         <tr class="item__parameter">
-          <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the margins.</p>
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The value(s) for the margins.</p>
 </td>
           <td data-label="type">
           
@@ -5004,13 +5004,13 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@mixin h-borders($value) { 
-  @include opposing-properties(border, horizontal, $value);
+    data-expanded="@mixin h-borders($values) { 
+  @include opposing-properties(border, horizontal, $values);
  }"
-    data-collapsed="@mixin h-borders($value) { ... }"><code>@mixin h-borders($value) { ... }</code></pre>
+    data-collapsed="@mixin h-borders($values) { ... }"><code>@mixin h-borders($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L89-L91" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L90-L92" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5046,8 +5046,8 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     <tbody>
       
         <tr class="item__parameter">
-          <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the borders.</p>
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The value(s) for the borders.</p>
 </td>
           <td data-label="type">
           
@@ -5166,13 +5166,13 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@mixin v-borders($value) { 
-  @include opposing-properties(border, vertical, $value);
+    data-expanded="@mixin v-borders($values) { 
+  @include opposing-properties(border, vertical, $values);
  }"
-    data-collapsed="@mixin v-borders($value) { ... }"><code>@mixin v-borders($value) { ... }</code></pre>
+    data-collapsed="@mixin v-borders($values) { ... }"><code>@mixin v-borders($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L101-L103" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L102-L104" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5208,8 +5208,8 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     <tbody>
       
         <tr class="item__parameter">
-          <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the borders.</p>
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The value(s) for the borders.</p>
 </td>
           <td data-label="type">
           
@@ -5328,13 +5328,13 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@mixin h-padding($value) { 
-  @include opposing-properties(padding, horizontal, $value);
+    data-expanded="@mixin h-padding($values) { 
+  @include opposing-properties(padding, horizontal, $values);
  }"
-    data-collapsed="@mixin h-padding($value) { ... }"><code>@mixin h-padding($value) { ... }</code></pre>
+    data-collapsed="@mixin h-padding($values) { ... }"><code>@mixin h-padding($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L113-L115" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L114-L116" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5370,8 +5370,8 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     <tbody>
       
         <tr class="item__parameter">
-          <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the padding.</p>
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The value(s) for the padding.</p>
 </td>
           <td data-label="type">
           
@@ -5490,13 +5490,13 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@mixin v-padding($value) { 
-  @include opposing-properties(padding, vertical, $value);
+    data-expanded="@mixin v-padding($values) { 
+  @include opposing-properties(padding, vertical, $values);
  }"
-    data-collapsed="@mixin v-padding($value) { ... }"><code>@mixin v-padding($value) { ... }</code></pre>
+    data-collapsed="@mixin v-padding($values) { ... }"><code>@mixin v-padding($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L125-L127" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L126-L128" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5532,8 +5532,8 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     <tbody>
       
         <tr class="item__parameter">
-          <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the padding.</p>
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The value(s) for the padding.</p>
 </td>
           <td data-label="type">
           
@@ -5658,7 +5658,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin margin($value) { ... }"><code>@mixin margin($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L137-L139" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L138-L140" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5820,7 +5820,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin margin-top($value) { ... }"><code>@mixin margin-top($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L149-L151" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L150-L152" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -5982,7 +5982,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin margin-right($value) { ... }"><code>@mixin margin-right($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L161-L163" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L162-L164" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6144,7 +6144,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin margin-bottom($value) { ... }"><code>@mixin margin-bottom($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L173-L175" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L174-L176" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6306,7 +6306,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin margin-left($value) { ... }"><code>@mixin margin-left($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L185-L187" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L186-L188" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6468,7 +6468,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin padding($value) { ... }"><code>@mixin padding($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L197-L199" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L198-L200" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6630,7 +6630,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin padding-top($value) { ... }"><code>@mixin padding-top($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L210-L212" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L211-L213" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6792,7 +6792,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin padding-right($value) { ... }"><code>@mixin padding-right($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L222-L224" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L223-L225" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -6954,7 +6954,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin padding-bottom($value) { ... }"><code>@mixin padding-bottom($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L234-L236" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L235-L237" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -7116,7 +7116,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin padding-left($value) { ... }"><code>@mixin padding-left($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L246-L248" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L247-L249" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -7278,7 +7278,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin border($value) { ... }"><code>@mixin border($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L258-L260" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L259-L261" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -7440,7 +7440,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin border-top($value) { ... }"><code>@mixin border-top($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L270-L272" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L271-L273" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -7602,7 +7602,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin border-right($value) { ... }"><code>@mixin border-right($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L282-L284" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L283-L285" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -7764,7 +7764,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin border-bottom($value) { ... }"><code>@mixin border-bottom($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L294-L296" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L295-L297" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -7926,7 +7926,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@mixin border-left($value) { ... }"><code>@mixin border-left($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L306-L308" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L307-L309" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -8102,19 +8102,30 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
 <div class="relative  clear  code--collapsed">
   <pre class="item__code  item__code--togglable  language-scss"
     data-current-state="collapsed"
-    data-expanded="@mixin opposing-properties($property, $orientation, $value) { 
-  $sides: box-side-for-orientation($orientation);
+    data-expanded="@mixin opposing-properties($property, $orientation, $values) { 
+  $count: length($values);
+  $first-value: nth($values, 1);
+  $second-value: null;
+  @if $count == 1 {
+    $second-value: $first-value;
+  }@else if $count == 2 {
+    $second-value: nth($values, 2);
+  }@else {
+    $error: box-throw-error($box-argument-count-error, &quot;opposing-properties accepts either 1 or 2 $values, but you supplied #{$count}&quot;)
+  }
+
+  $sides: box-sides-for-orientation($orientation);
   @include box(
     (
-      #{$property}-#{ nth($sides, 1)}: $value,
-      #{$property}-#{ nth($sides, 2)}: $value
+      #{$property}-#{ nth($sides, 1)}: $first-value,
+      #{$property}-#{ nth($sides, 2)}: $second-value
     )
   );
  }"
-    data-collapsed="@mixin opposing-properties($property, $orientation, $value) { ... }"><code>@mixin opposing-properties($property, $orientation, $value) { ... }</code></pre>
+    data-collapsed="@mixin opposing-properties($property, $orientation, $values) { ... }"><code>@mixin opposing-properties($property, $orientation, $values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_api.scss#L324-L332" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_api.scss#L328-L347" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -8182,8 +8193,8 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
         </tr>
       
         <tr class="item__parameter">
-          <th scope="row" data-label="name"><code>$value</code></th>
-          <td data-label="desc"><p>The value for the property-pair</p>
+          <th scope="row" data-label="name"><code>$values</code></th>
+          <td data-label="desc"><p>The values for the property-pair</p>
 </td>
           <td data-label="type">
           
@@ -8213,6 +8224,15 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
   
     
     
+  <h3 class="item__sub-heading">Throws</h3>
+
+  <ul class="list-unstyled">
+    
+      <li><p>$box-argument-count-error</p>
+</li>
+    
+  </ul>
+
 
   
     
@@ -8290,7 +8310,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
           
 
           <!-- Version -->
-          <span class="project-info__version"> - v0.0.18</span>
+          <span class="project-info__version"> - v0.1.1</span>
 
           <!-- License -->
           
