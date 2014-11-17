@@ -1,4 +1,4 @@
-/*! box v0.1.1 – 07.11.2014 */
+/*! box v0.1.2 – 17.11.2014 */
 
 ////
 /// @author Pedr Browne
@@ -163,14 +163,13 @@ $box-invalid-value-error: "Invalid Value Error";
   // All same
   @if $top == $right and $right == $bottom and $bottom == $left {
      $result: ($top);
-  // top + bottom same
-  } @else if $top == $bottom {
-      @if $right == $left  {
-        // left + right same
-        $result: ($top $right);
-      }
+  // left + right same
   }@else if $right == $left {
-    $result: ($top $right $bottom);
+    @if $top == $bottom {
+      $result: ($top $right);
+    }@else {
+      $result: ($top $right $bottom);
+    }
   } @else {
     $result: $values;
   }

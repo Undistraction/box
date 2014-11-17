@@ -8,7 +8,7 @@
   
   <meta charset="utf-8" />
 
-<title>SassDoc - v0.1.1</title>
+<title>SassDoc - v0.1.2</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width">
@@ -26,7 +26,7 @@
   <div class="sidebar__header">
   <h1 class="sidebar__title">
     
-      <a href="https://github.com/Undistraction/Box">SassDoc - v0.1.1</a>
+      <a href="https://github.com/Undistraction/Box">SassDoc - v0.1.2</a>
     
   </h1>
 </div>
@@ -1390,14 +1390,13 @@ singular or multiple values.</p>
   // All same
   @if $top == $right and $right == $bottom and $bottom == $left {
      $result: ($top);
-  // top + bottom same
-  } @else if $top == $bottom {
-      @if $right == $left  {
-        // left + right same
-        $result: ($top $right);
-      }
+  // left + right same
   }@else if $right == $left {
-    $result: ($top $right $bottom);
+    @if $top == $bottom {
+      $result: ($top $right);
+    }@else {
+      $result: ($top $right $bottom);
+    }
   } @else {
     $result: $values;
   }
@@ -1406,7 +1405,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-optimise-four-values($values) { ... }"><code>@function box-optimise-four-values($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L153-L176" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L153-L175" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1579,7 +1578,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-is-valid-property($property) { ... }"><code>@function box-is-valid-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L186-L188" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L185-L187" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1752,7 +1751,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-is-single-property($property) { ... }"><code>@function box-is-single-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L198-L200" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L197-L199" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1930,7 +1929,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-orientation-of-property($property) { ... }"><code>@function box-orientation-of-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L210-L217" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L209-L216" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2107,7 +2106,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-sides-for-orientation($orientation) { ... }"><code>@function box-sides-for-orientation($orientation) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L227-L233" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L226-L232" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2298,7 +2297,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-throw-error($error, $message) { ... }"><code>@function box-throw-error($error, $message) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L261-L271" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L260-L270" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2498,7 +2497,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-parse-value-filter($value, $The) { ... }"><code>@function box-parse-value-filter($value, $The) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L285-L287" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L284-L286" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2697,7 +2696,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-valid-value($value) { ... }"><code>@function box-is-valid-value($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L297-L301" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L296-L300" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2870,7 +2869,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-number-with-unit($value) { ... }"><code>@function box-is-number-with-unit($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L312-L314" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L311-L313" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -3043,7 +3042,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-valid-unitless($value) { ... }"><code>@function box-is-valid-unitless($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L324-L326" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L323-L325" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -3216,7 +3215,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-calc($value) { ... }"><code>@function box-is-calc($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L336-L338" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L335-L337" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -3389,7 +3388,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function is-even($value) { ... }"><code>@function is-even($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L348-L350" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L347-L349" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -8310,7 +8309,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
           
 
           <!-- Version -->
-          <span class="project-info__version"> - v0.1.1</span>
+          <span class="project-info__version"> - v0.1.2</span>
 
           <!-- License -->
           
