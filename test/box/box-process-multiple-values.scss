@@ -56,6 +56,20 @@
     }
   }
 
+  @include describe("with a united value of a a a d") {
+
+    @include it("should return a a d") {
+      @include should(
+        expect(
+          box-process-multiple-values(1px 1px 1px 4px)
+        ),
+        to( equal(
+          1px 1px 1px 4px
+        ))
+      );
+    }
+  }
+
   // Errors
   // -----------------------------------------------------------------------------------------------
 
