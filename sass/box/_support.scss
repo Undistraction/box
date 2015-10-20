@@ -110,7 +110,7 @@ $box-invalid-value-error: "Invalid Value Error";
       @if function-exists(box-parse-value-filter) {
         $value: box-parse-value-filter($value, $orientation);
       }@else{
-        $value: box-default-parse-value-filter($value);
+        $value: box-default-parse-value-filter($value, $orientation);
       }
     }
     $processed-values: append($processed-values, $value);
