@@ -89,7 +89,8 @@ There is also a single box mixin that allows you to set all box properties at th
 
 ### Using custom values
 
-Where things get interesting is a function called `box-parse-value-filter`. This function is called when a value isn't recognised (it is an unknown, unitless value). By default it will throw an error, but by overriding this function (by declaring a function with the same name and signiture after you've imported box), you can process this value yourself.
+Where things get interesting is in how box handles unknown values. By default it will call `box-default-parse-value-filter` when a value isn't recognised (it is an unknown, unitless value), throwing an error. However it will first check for the existance of another function: 'box-parse-value-filter'. If you define this function you can handle these cases yourself.
+
 
 For example, most projects are full hardcoded box-property declarations which quickly become inconsistant and ad-hoc. Why not enforce consistancy and improve readability on your projectby using a set of custom units:
 
@@ -131,6 +132,7 @@ $custom-units-map: (
 }
 
 ```
+*Note this API has changed since version 1.2. In version 1.2 you overrode the 'box-parse-value-filter' function, but now you are no longer overriding the default handling. Apart from being less opaque, this means that you can define this function before or after you import box.
 
 There is a lot more that you can do with this simple functionality. For example you could use unitless values in the `$custom-units-map` and multiply them with a vertical rhythm unit, or
 use breakpoint context to tweak these units across breakpoints, so that a declaration of `single` can mean different values at different breakpoints. *More examples coming soon.*
