@@ -8,7 +8,7 @@
   
   <meta charset="utf-8" />
 
-<title>SassDoc - v0.2.0</title>
+<title>SassDoc - v0.2.1</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width">
@@ -26,7 +26,7 @@
   <div class="sidebar__header">
   <h1 class="sidebar__title">
     
-      <a href="https://github.com/Undistraction/Box">SassDoc - v0.2.0</a>
+      <a href="https://github.com/Undistraction/Box">SassDoc - v0.2.1</a>
     
   </h1>
 </div>
@@ -835,19 +835,14 @@ singular or multiple values.</p>
     data-expanded="@function box-process-single-value($value) { 
   @if not box-is-valid-value($value) {
     // Process if it isn&#39;t already a valid value
-    @if function-exists(box-parse-value-filter) {
-      $value: box-parse-value-filter($value, $orientation);
-    }@else {
-      $value: box-default-parse-value-filter($value, $orientation);
-    }
-
+    $value: box-parse-value($value, $orientation);
   }
   @return $value;
  }"
     data-collapsed="@function box-process-single-value($value) { ... }"><code>@function box-process-single-value($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L82-L93" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L82-L88" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1019,7 +1014,7 @@ singular or multiple values.</p>
       $orientation: vertical;
     }
     @if not box-is-valid-value($value) {
-      $value: box-default-parse-value-filter($value, $orientation);
+      $value: box-parse-value($value, $orientation);
     }
     $processed-values: append($processed-values, $value);
   }
@@ -1030,7 +1025,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-process-multiple-values($values) { ... }"><code>@function box-process-multiple-values($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L103-L122" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L98-L117" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1217,7 +1212,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-process-to-four-values($values) { ... }"><code>@function box-process-to-four-values($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L132-L148" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L127-L143" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1410,7 +1405,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-optimise-four-values($values) { ... }"><code>@function box-optimise-four-values($values) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L158-L180" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L153-L175" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1583,7 +1578,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-is-valid-property($property) { ... }"><code>@function box-is-valid-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L190-L192" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L194-L196" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1756,7 +1751,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-is-single-property($property) { ... }"><code>@function box-is-single-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L202-L204" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L206-L208" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -1934,7 +1929,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-orientation-of-property($property) { ... }"><code>@function box-orientation-of-property($property) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L214-L221" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L218-L225" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2111,7 +2106,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-sides-for-orientation($orientation) { ... }"><code>@function box-sides-for-orientation($orientation) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L231-L237" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L235-L241" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2302,7 +2297,7 @@ singular or multiple values.</p>
     data-collapsed="@function box-throw-error($error, $message) { ... }"><code>@function box-throw-error($error, $message) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L265-L275" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L269-L279" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2502,7 +2497,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-default-parse-value-filter($value, $The) { ... }"><code>@function box-default-parse-value-filter($value, $The) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L289-L291" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L293-L295" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2701,7 +2696,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-valid-value($value) { ... }"><code>@function box-is-valid-value($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L301-L305" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L305-L309" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -2874,7 +2869,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-number-with-unit($value) { ... }"><code>@function box-is-number-with-unit($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L316-L318" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L320-L322" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -3047,7 +3042,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-valid-unitless($value) { ... }"><code>@function box-is-valid-unitless($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L328-L330" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L332-L334" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -3220,7 +3215,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function box-is-calc($value) { ... }"><code>@function box-is-calc($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L340-L342" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L344-L346" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -3393,7 +3388,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
     data-collapsed="@function is-even($value) { ... }"><code>@function is-even($value) { ... }</code></pre>
 
   
-    <a href="https://github.com/Undistraction/box/box/_support.scss#L352-L354" class="item__source-link" target="_blank">View source</a>
+    <a href="https://github.com/Undistraction/box/box/_support.scss#L356-L358" class="item__source-link" target="_blank">View source</a>
   
 </div>
 
@@ -8314,7 +8309,7 @@ with the error saved to <code>$box-last-error</code> instead so tests can check 
           
 
           <!-- Version -->
-          <span class="project-info__version"> - v0.2.0</span>
+          <span class="project-info__version"> - v0.2.1</span>
 
           <!-- License -->
           
