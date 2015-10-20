@@ -82,12 +82,7 @@ $box-invalid-value-error: "Invalid Value Error";
 @function box-process-single-value($value, $orientation) {
   @if not box-is-valid-value($value) {
     // Process if it isn't already a valid value
-    @if function-exists(box-parse-value-filter) {
-      $value: box-parse-value-filter($value, $orientation);
-    }@else {
-      $value: box-default-parse-value-filter($value, $orientation);
-    }
-
+    $value: box-parse-value($value, $orientation);
   }
   @return $value;
 }
@@ -112,7 +107,7 @@ $box-invalid-value-error: "Invalid Value Error";
       $orientation: vertical;
     }
     @if not box-is-valid-value($value) {
-      $value: box-default-parse-value-filter($value, $orientation);
+      $value: box-parse-value($value, $orientation);
     }
     $processed-values: append($processed-values, $value);
   }
@@ -177,6 +172,15 @@ $box-invalid-value-error: "Invalid Value Error";
     $result: $values;
   }
   @return $result;
+}
+
+@function box-parse-value($value, $orientation){
+  @if function-exists(box-parse-value-filter) {
+    $value: box-parse-value-filter($value, $orientation);
+  }@else {
+    $value: box-default-parse-value-filter($value, $orientation);
+  }
+  @return $value;
 }
 
 /// Is the supplied property a property that is supported?
