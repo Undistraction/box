@@ -1,4 +1,4 @@
-/*! box v0.1.2 – 17.11.2014 */
+/*! box v0.2.0 – 20.10.2015 */
 
 ////
 /// @author Pedr Browne
@@ -84,7 +84,12 @@ $box-invalid-value-error: "Invalid Value Error";
 @function box-process-single-value($value, $orientation) {
   @if not box-is-valid-value($value) {
     // Process if it isn't already a valid value
-    $value: box-parse-value-filter($value, $orientation);
+    @if function-exists(box-parse-value-filter) {
+      $value: box-parse-value-filter($value, $orientation);
+    }@else {
+      $value: box-default-parse-value-filter($value, $orientation);
+    }
+
   }
   @return $value;
 }
@@ -109,7 +114,7 @@ $box-invalid-value-error: "Invalid Value Error";
       $orientation: vertical;
     }
     @if not box-is-valid-value($value) {
-      $value: box-parse-value-filter($value, $orientation);
+      $value: box-default-parse-value-filter($value, $orientation);
     }
     $processed-values: append($processed-values, $value);
   }
@@ -283,7 +288,7 @@ $box-error-thrown: false;
 ///
 /// @throws $box-unsupported-value-error
 ///
-@function box-parse-value-filter($value, $orientation) {
+@function box-default-parse-value-filter($value, $orientation) {
   @return box-throw-error($box-invalid-value-error, "Invalid value #{$value}");
 }
 
@@ -349,6 +354,7 @@ $box-error-thrown: false;
 @function is-even($number) {
   @return $number % 2 == 0;
 }
+
 
 ////
 /// @author Pedr Browne
